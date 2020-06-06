@@ -28,15 +28,9 @@ const update_users = async (userID,username, email, profile_pic_url) => {
 
 }
 
-const get_travel_listings = async () => {
-    const sql = "SELECT * FROM travel_listings";
-    [results, fields] = await dbConn.query(sql);
-    return results
-}
-
-const add_users = async (title, description, image,price,country,travel_period) => {
-    const sql = "INSERT INTO travel_listings(title, description, image,price,country,travel_period) values(?,?,?,?,?,?)"
-    [results, fields] = await dbConn.query(sql, [title, description, image,price,country,travel_period]);
-    return results.insertID
-
+module.exports = {
+    get_users: get_users,
+    add_users: add_users,
+    get_users_by_id: get_users_by_id,
+    update_users: update_users
 }
