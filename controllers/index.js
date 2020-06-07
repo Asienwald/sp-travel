@@ -69,7 +69,7 @@ app.put("/users",upload.single(profile),async(req,res)=>{
     }
 })
 
-app.get("/users",async(req,res)=>{
+app.get("/travel",async(req,res)=>{
     try{
         const results = await travel_listings.get_travel_listings();
         res.status(200).send(results);
@@ -79,7 +79,7 @@ app.get("/users",async(req,res)=>{
     }
 })
 
-app.post("/users",upload.single("upload"),async(req,res)=>{
+app.post("/travel",upload.single("upload"),async(req,res)=>{
     try{
         const title = req.body.title;
         const description = req.body.description;
@@ -88,7 +88,7 @@ app.post("/users",upload.single("upload"),async(req,res)=>{
         const travel_period = req.body.travel_period;
         const image = req.file.buffer;
         
-        const results = await travel_listings.add_travel_listings(username,email,username);
+        const results = await travel_listings.add_travel_listings(title,description,image,price,country,travel_period);
         await fs.writeFile(`./images/${username}.png`,img);
         res.status(201).send(results);
     }catch(err){
@@ -96,3 +96,5 @@ app.post("/users",upload.single("upload"),async(req,res)=>{
         res.status(500).send("Internal Server Error");
     }
 })
+
+module.exports = app;

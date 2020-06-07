@@ -10,7 +10,7 @@ const get_users = async () => {
 
 const add_users = async (username, email, profile_pic_url) => {
     const sql = "INSERT INTO users(username, email, profile_pic_url) values(?,?,?)"
-    [results, fields] = await dbConn.query(sql, [username, email, profile_pic_url]);
+    [results, fields] = await dbConn.query(sql, [username, email, `${profile_pic_url}.png`]);
     return results.insertID
 
 }
