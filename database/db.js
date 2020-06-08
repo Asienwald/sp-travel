@@ -5,13 +5,11 @@ const dbconnect = {
         const conn = mysql.createPool({
             host:"localhost",
             port: 3306,
-            user: "pikachu",
-            password: "password",
-            database: "friendbook"
+            user: "root",
+            password: "frickFrack28!",
+            database: "sptravel"
         }).promise();
         return conn;
-        
-       
     }
 }
 
