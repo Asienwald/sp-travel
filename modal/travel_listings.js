@@ -9,7 +9,7 @@ const get_travel_listings = async () => {
 }
 
 const add_travel_listings = async (title, description, image, price, country, travel_period) => {
-    const sql = "INSERT INTO travel_listings(title, description, image,price,country,travel_period) values(?,?,?,?,?,?)"
+    const sql = "INSERT INTO travel_listings(title, description, image_url, price,country,travel_period) values(?,?,?,?,?,?)"
     const [results, fields] = await dbConn.query(sql, [title, description, image, price, country, travel_period]);
     return results.insertId
 
@@ -34,7 +34,7 @@ const get_initinerary = async (travel_id) => {
 }
 
 const create_itinerary = async (travel_id, day, activity) => {
-    const sql = "insert into itinerary (fk_travel_id,day, activity) values (?, ?, ?);";
+    const sql = "insert into itinerary (fk_travel_id, day, activity) values (?, ?, ?);";
     const [results, fields] = await dbConn.query(sql, [travel_id, day, activity]);
     return results.insertId;
 }

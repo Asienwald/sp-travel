@@ -55,9 +55,10 @@ const login_user = async (username, password) => {
         const hash = results[0]["password"];
         const salt = results[0]["salt"];    
 
-        // const given_hash = await generate_hash_password(password, salt);
+        const given_hash = await generate_hash_password(password, salt);
 
-        const match = await bcrypt.compare(password, hash);
+
+        const match = (hash == given_hash[0]) ? true : false;
         if (match) return `Login Successful, welcome user ${username}`;
         else throw new Error("Wrong password");
     }

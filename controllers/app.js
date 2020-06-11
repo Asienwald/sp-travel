@@ -153,7 +153,7 @@ app.post("/travel/:id/itinerary", async(req, res) => {
         const day = req.body.day;
         const activity = req.body.activity;
         const result = await travel_listings.create_itinerary(tid, day, activity);
-        res.status(201).send(`{"itineraryid":${results}}`);
+        res.status(201).send(`{"itineraryid":${result}}`);
     }catch(err){
         console.log(err)
         res.status(500).send(ERROR_MSG);
@@ -167,7 +167,7 @@ app.post("/user/:uid/travel/:tid/review", async(req, res) => {
         const content = req.body.content;
         const rating = req.body.rating;
         const result = await reviews.create_review(uid, tid, content, rating);
-        res.status(201).send(`{"reviewid":${results}}`);
+        res.status(201).send(`{"reviewid":${result}}`);
     }catch(err){
         console.log(err)
         res.status(500).send(ERROR_MSG);
