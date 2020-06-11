@@ -15,7 +15,8 @@ const app = express();
 const upload = multer({dest: `upload/`,limits:{fileSize:1048576}});
 const ERROR_MSG = "Internal Server Error";
 const type = upload.single("upload");
-
+const profile_pic_url = `./images/`
+const travel_url = `./travel/`
 const transfer = async (src,dest)=>{
     await pipeline(
         fs.createReadStream(src),
@@ -46,7 +47,7 @@ app.post("/users",type,async (req,res)=>{
         const email = req.body.email;
         const password = req.body.password;
         const src = req.file.path;
-        const dest = `./images/${username}.jpg`;
+        const dest = `${profile_pic_url}${username}.jpg`;
         await transfer(src,dest);
         const results = await user.add_users(username,email,username, password);
         res.type("json").status(201).send(`{"userid":${results}}`);
@@ -73,7 +74,7 @@ app.put("/users/:id",type,async(req,res)=>{
         const email = req.body.email;
         const password = req.body.password;
         const src = req.file.path;
-        const dest = `./images/${username}.jpg`;
+        const dest = `${profile_pic_url}${username}.jpg`;
         await transfer(src,dest);
         const results = await user.update_users(userid,username,email,username, password);
         res.status(204).send();
@@ -101,8 +102,9 @@ app.post("/travel",type,async(req,res)=>{
         const country = req.body.country;
         const travel_period = req.body.travel_period;
         const src = req.file.path;
-        const buffer = await readBuffer(src);
-        const results = await travel_listings.add_travel_listings(title,description,buffer,price,country,travel_period);
+        const dest = `${Date.now()}.jpg`;
+        await transfer(src,`${travel_url}${dest}`);
+        const results = await travel_listings.add_travel_listings(title,description,dest,price,country,travel_period);
         res.type(status).status(201).send(`{"travelid":${results}}`);
     }catch(err){
         console.log(err);
@@ -129,8 +131,9 @@ app.put("/travel/:id/",type, async(req, res) => {
         const country = req.body.country;
         const travel_period = req.body.travel_period;
         const src = req.file.path;
-        const buffer = await readBuffer(src);
-        const result = await travel_listings.update_travel_listing(title, description, buffer, price, country, travel_period);
+        const dest = `${Date.now()}.jpg`;
+        await transfer(src,`${travel_url}${dest}`);
+        const result = await travel_listings.update_travel_listing(title, description, dest, price, country, travel_period,tid);
         res.status(204).send(null);
     }catch(err){
         res.status(500).send(ERROR_MSG);
