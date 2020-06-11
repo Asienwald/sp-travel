@@ -8,9 +8,15 @@ const get_travel_listings = async () => {
     return results
 }
 
+<<<<<<< Updated upstream
 const add_travel_listings = async (title, description, image, price, country, travel_period) => {
     const sql = "INSERT INTO travel_listings(title, description, image_url, price,country,travel_period) values(?,?,?,?,?,?)"
     const [results, fields] = await dbConn.query(sql, [title, description, image, price, country, travel_period]);
+=======
+const add_travel_listings = async (title, description, image_url, price, country, travel_period) => {
+    const sql = "INSERT INTO travel_listings(title, description, image_url ,price,country,travel_period) values(?,?,?,?,?,?)"
+    const [results, fields] = await dbConn.query(sql, [title, description, image_url, price, country, travel_period]);
+>>>>>>> Stashed changes
     return results.insertId
 
 }
@@ -21,9 +27,9 @@ const delete_travel_listing = async (id) => {
     return results.affectedRows;
 }
 
-const update_travel_listing = async (title, description, image, price, country, travel_period) => {
-    const sql = "update travel_listings set title=?, description=?, image=?, price=?, country=?, travel_period=?;"
-    const [results, fields] = await dbConn.query(sql, [title, description, image, price, country, travel_period]);
+const update_travel_listing = async (title, description, image_url, price, country, travel_period,travel_id) => {
+    const sql = "update travel_listings set title=?, description=?, image_url=?, price=?, country=?, travel_period=? where travel_id=?;"
+    const [results, fields] = await dbConn.query(sql, [title, description, image_url, price, country, travel_period,travel_id]);
     return results.affectedRows;
 }
 
