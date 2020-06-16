@@ -12,12 +12,6 @@ const generate_hash_password = async (password, salt = null) => {
 }
 
 
-// const yes = async() => {
-//     [hash, salt] = await generate_hash_password("yes me");
-//     console.log(hash);
-//     console.log(salt);
-// }
-// yes();
 
 
 const get_users = async () => {

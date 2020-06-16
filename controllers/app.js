@@ -188,6 +188,7 @@ app.get("/travel/:id/review", async(req, res) => {
     }
 })
 
+// bonus feature login
 app.post("/user/login/", async(req, res) => {
     try{
         const username = req.body.username;
