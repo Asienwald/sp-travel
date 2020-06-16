@@ -8,15 +8,10 @@ const get_travel_listings = async () => {
     return results
 }
 
-<<<<<<< Updated upstream
-const add_travel_listings = async (title, description, image, price, country, travel_period) => {
-    const sql = "INSERT INTO travel_listings(title, description, image_url, price,country,travel_period) values(?,?,?,?,?,?)"
-    const [results, fields] = await dbConn.query(sql, [title, description, image, price, country, travel_period]);
-=======
+
 const add_travel_listings = async (title, description, image_url, price, country, travel_period) => {
     const sql = "INSERT INTO travel_listings(title, description, image_url ,price,country,travel_period) values(?,?,?,?,?,?)"
     const [results, fields] = await dbConn.query(sql, [title, description, image_url, price, country, travel_period]);
->>>>>>> Stashed changes
     return results.insertId
 
 }
