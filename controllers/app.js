@@ -25,11 +25,8 @@ const transfer = async (src,dest)=>{
         fs.unlink(src,()=>{})
     );
 }
-const readBuffer = async(src)=>{
-    return await readFile(src).then(fs.unlink(src,()=>{}));
-}
-app.use(url_encoded);
-app.use(body_parser("json"));
+
+app.use(type)
 
 app.get("/users",async(req,res)=>{
     try{
@@ -41,7 +38,7 @@ app.get("/users",async(req,res)=>{
     }
 })
 
-app.post("/users",type,async (req,res)=>{
+app.post("/users",async (req,res)=>{
     try{
         const username = req.body.username;
         const email = req.body.email;
@@ -67,7 +64,7 @@ app.get("/users/:id",async(req,res)=>{
     }
 })
 
-app.put("/users/:id",type,async(req,res)=>{
+app.put("/users/:id",async(req,res)=>{
     try{
         const userid = req.params.id;
         const username = req.body.username;
@@ -94,7 +91,7 @@ app.get("/travel",async(req,res)=>{
     }
 })
 
-app.post("/travel",type,async(req,res)=>{
+app.post("/travel",async(req,res)=>{
     try{
         const title = req.body.title;
         const description = req.body.description;
@@ -105,7 +102,7 @@ app.post("/travel",type,async(req,res)=>{
         const dest = `${Date.now()}.jpg`;
         await transfer(src,`${travel_url}${dest}`);
         const results = await travel_listings.add_travel_listings(title,description,dest,price,country,travel_period);
-        res.type(status).status(201).send(`{"travelid":${results}}`);
+        res.type("json").status(201).send(`{"travelid":${results}}`);
     }catch(err){
         console.log(err);
         res.status(500).send(ERROR_MSG);
@@ -122,7 +119,7 @@ app.delete("/travel/:id/", async(req, res) => {
     }
 })
 
-app.put("/travel/:id/",type, async(req, res) => {
+app.put("/travel/:id/", async(req, res) => {
     try{
         const tid = req.params.id;
         const title = req.body.title;
