@@ -77,7 +77,7 @@ app.put("/users/:id",async(req,res)=>{
         res.status(204).send();
     }catch(err){
         console.log(err);
-        res.status(422).send("Unprocessable Entity");
+        res.status(err.errno==1062?422:500).send(err.errno==1062?"Unprocessable Entity":"Internal Server Error");
     }
 })
 
