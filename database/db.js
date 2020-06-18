@@ -15,7 +15,7 @@ const dbconnect = {
             port: 3306,
             user: "pikachu",
             password: "password",
-            database: "sptravel"
+            database: "SPTRAVEL"
         }).promise();
         return conn;
     }
