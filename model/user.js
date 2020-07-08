@@ -25,7 +25,6 @@ const add_users = async (username, email, profile_pic_url, password) => {
     const [hash, salt] = await generate_hash_password(password);
     [results, fields] = await dbConn.query(sql, [username, email, `${profile_pic_url}.png`, hash, salt]);
     return results.insertId
-
 }
 
 const get_users_by_id = async (userID) => {

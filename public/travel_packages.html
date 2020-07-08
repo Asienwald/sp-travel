@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>SP Travel</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/materialize-social.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="index.html" class="brand-logo">SP Travels</a>
+      <ul class="right hide-on-med-and-down">
+        <!-- signed out nav buttons -->
+        <li><a href="#modal-login" class="modal-trigger signed-out">Login</a></li>
+        <li><a href="#modal-signup" class="modal-trigger signed-out">Signup</a></li>
+
+        <!-- signed in nav buttons -->
+        <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
+        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
+        <li><a class='dropdown-trigger blue-text' data-target='user-menu-dropdown'>Welcome, USERNAME</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <!-- signed out nav buttons -->
+        <li><a href="#modal-login" class="modal-trigger signed-out">Login</a></li>
+        <li><a href="#modal-signup" class="modal-trigger signed-out">Signup</a></li>
+
+        <!-- signed in nav buttons -->
+        <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
+        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
+        <li><a class='blue-text'>USERNAME</a></li>
+        <li><a class='red-text' href="#">Logout</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <!-- Dropdown Structure -->
+  <ul id='user-menu-dropdown' class='dropdown-content'>
+    <li><a class="red-text">Logout</a></li>
+  </ul>
+
+  <!-- Modal Structure -->
+  <div id="modal-login" class="modal">
+    <form method="post">
+      <div class="modal-content">
+        <h4>Login</h4>
+
+
+        <div id="signin-error-msg"></div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="email" class="validate" id="email-login">
+            <label for="email-login">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="password" class="validate" id="pwd-login">
+            <label for="pwd-login">Password</label>
+          </div>
+        </div>
+        <!-- <a href="#modal-signup" class="modal-trigger waves-effect waves-light btn-large social linkedin">
+          <i class="fas fa-sign-in-alt"></i> No account? Sign Up Now!</a> -->
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-light btn red lighten-1">Cancel</a>
+        <button class="waves-effect waves-light btn teal lighten-1" type="submit">Login</button>
+      </div>
+    </form>
+      
+    
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal-signup" class="modal">
+    <form method="post">
+      <div class="modal-content">
+        <h4>Sign Up</h4>
+        <div id="signup-error-msg"></div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="uid" type="text" class="validate">
+            <label for="uid">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="pwd1" type="password" class="validate">
+            <label for="pwd1">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="pwd2" type="password" class="validate">
+            <label for="pwd2">Re-Enter Password</label>
+          </div>
+        </div>
+        <!-- <a href="#modal-login" class="modal-trigger waves-effect waves-light btn-large social linkedin">
+          <i class="fas fa-sign-in-alt"></i> Have an account? Login Now!</a> -->
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-light btn red lighten-1">Cancel</a>
+        <button type="submit" class="waves-effect waves-light btn teal lighten-1">Sign Up</button>
+      </div>
+    </form>
+      
+
+    
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h1>Travel Packages</h1>
+      </div>
+      <div class="col s12">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_list</i>Filter Options</div>
+            <div class="collapsible-body">
+              <form method="post">
+                <div class="row">
+                  <div class="input-field col s12 m6">
+                    <input id="country" type="text" class="validate">
+                    <label for="country">Country</label>
+                  </div>
+                  <div class="input-field col s6 m3">
+
+                    <input id="travel-period-from" type="text" class="datepicker">
+                    <label for="travel-period-from">Date From</label>
+                  </div>
+                  <div class="input-field col s6 m3">
+
+                    <input id="travel-period-to" type="text" class="datepicker">
+                    <label for="travel-period-to">Date To</label>
+                  </div>
+                  <div class="input-field col s6 m3">
+                    <input id="listing-name" type="number" class="validate">
+                    <label for="listing-name">Min Price</label>
+                  </div>
+                  <div class="input-field col s6 m3">
+                    <input id="listing-name" type="number" class="validate">
+                    <label for="listing-name">Max Price</label>
+                  </div>
+                  <div class="col s3 offset-s9">
+                    
+                    <button class="btn waves-effect waves-light" type="submit">Apply
+                      <i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </div>
+
+                
+              </form>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    
+
+    <div id="travel-listing-container" class="row">
+      <div class="col s12 m12 l6 ">
+        <div class="card waves-effect waves-light hoverable modal-trigger" >
+          <div class="card-image">
+            <img id="travel-img" src="images/pompeii.jpg">
+            
+          </div>
+          <div class="card-content ">
+            <span id="title" class="card-title">7D6N Pompeii, Italy</span>
+            <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
+            
+            
+            
+          </div>
+          <div class="card-action ">
+            <div class="row center ">
+              <p id="travel-period" class="grey-text col s6 ">Mar 2021</p>
+              <p id="price" class="grey-text col s6 ">SGD 2450</p>
+            </div>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+      <div class="col s12 m12 l6 ">
+        <div class="card waves-effect waves-light hoverable ">
+          <div class="card-image">
+            <img id="travel-img" src="images/japan.jpg">
+            
+          </div>
+          <div class="card-content ">
+            <span id="title" class="card-title">3D2N Tokyo, Japan</span>
+            <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
+            
+            
+            
+          </div>
+          <div class="card-action ">
+            <div class="row center ">
+              <p id="travel-period" class="grey-text col s6 ">Mar 2021</p>
+              <p id="price" class="grey-text col s6 ">SGD 2450</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="col s12 m12 l6 ">
+        <div class="card waves-effect waves-light hoverable ">
+          <div class="card-image">
+            <img id="travel-img" src="images/bangkok.jpg">
+            
+          </div>
+          <div class="card-content ">
+            <span id="title" class="card-title">2D1N Bangkok, Thailand</span>
+            <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
+            
+            
+            
+          </div>
+          <div class="card-action ">
+            <div class="row center ">
+              <p id="travel-period" class="grey-text col s6 ">Mar 2021</p>
+              <p id="price" class="grey-text col s6 ">SGD 2450</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+  <footer class="page-footer grey darken-2">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">BED Assignment 02</h5>
+          <p class="grey-text text-lighten-4">Made with Express and the Materialize CSS Framework</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Members</h5>
+          <ul>
+            <li>Loh Kar Wei</li>
+            <li>Jess Kwek Zhi Chen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      DISM/FT/2A/02 2020
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
+

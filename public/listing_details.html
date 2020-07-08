@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>SP Travel</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/materialize-social.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/review.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="index.html" class="brand-logo">SP Travels</a>
+      <ul class="right hide-on-med-and-down">
+        <!-- signed out nav buttons -->
+        <li><a href="#modal-login" class="modal-trigger signed-out">Login</a></li>
+        <li><a href="#modal-signup" class="modal-trigger signed-out">Signup</a></li>
+
+        <!-- signed in nav buttons -->
+        <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
+        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
+        <li><a class='dropdown-trigger blue-text' data-target='user-menu-dropdown'>Welcome, USERNAME</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <!-- signed out nav buttons -->
+        <li><a href="#modal-login" class="modal-trigger signed-out">Login</a></li>
+        <li><a href="#modal-signup" class="modal-trigger signed-out">Signup</a></li>
+
+        <!-- signed in nav buttons -->
+        <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
+        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
+        <li><a class='blue-text'>USERNAME</a></li>
+        <li><a class='red-text' href="#">Logout</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <!-- Dropdown Structure -->
+  <ul id='user-menu-dropdown' class='dropdown-content'>
+    <li><a class="red-text">Logout</a></li>
+  </ul>
+
+  <!-- Modal Structure -->
+  <div id="modal-login" class="modal">
+    <form method="post">
+      <div class="modal-content">
+        <h4>Login</h4>
+
+
+        <div id="signin-error-msg"></div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="email" class="validate" id="email-login">
+            <label for="email-login">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="password" class="validate" id="pwd-login">
+            <label for="pwd-login">Password</label>
+          </div>
+        </div>
+        <!-- <a href="#modal-signup" class="modal-trigger waves-effect waves-light btn-large social linkedin">
+          <i class="fas fa-sign-in-alt"></i> No account? Sign Up Now!</a> -->
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-light btn red lighten-1">Cancel</a>
+        <button class="waves-effect waves-light btn teal lighten-1" type="submit">Login</button>
+      </div>
+    </form>
+      
+    
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal-signup" class="modal">
+    <form method="post">
+      <div class="modal-content">
+        <h4>Sign Up</h4>
+        <div id="signup-error-msg"></div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="uid" type="text" class="validate">
+            <label for="uid">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="pwd1" type="password" class="validate">
+            <label for="pwd1">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="pwd2" type="password" class="validate">
+            <label for="pwd2">Re-Enter Password</label>
+          </div>
+        </div>
+        <!-- <a href="#modal-login" class="modal-trigger waves-effect waves-light btn-large social linkedin">
+          <i class="fas fa-sign-in-alt"></i> Have an account? Login Now!</a> -->
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-light btn red lighten-1">Cancel</a>
+        <button type="submit" class="waves-effect waves-light btn teal lighten-1">Sign Up</button>
+      </div>
+    </form>
+      
+
+    
+  </div>
+
+
+  <div class="container">
+    <div class="row ">
+      <div class="col s12 ">
+        <img class="materialboxed" style="width: 100%;" src="images/japan.jpg">
+      </div>
+      <div class="col s12">
+        <h1>3D2N Tokyo, Japan</h1>
+        <p class="grey-text">28th March 2020 - 31st March 2020</p>
+        <p class="grey-text">Japan</p>
+        <div class="divider"></div>
+      </div>
+      <div class="col s12 section">
+        <h5>Description</h5>
+        <p>Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="col s12 section">
+        <h5>Itinerary</h5>
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card blue-grey darken-1" style="margin-left: 0; margin-right: 0;">
+              <div class="card-content white-text">
+                <span class="card-title">Day 1</span>
+                <p>cancelled due to covid.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6">
+            <div class="card blue-grey darken-1" style="margin-left: 0; margin-right: 0;">
+              <div class="card-content white-text">
+                <span class="card-title">Day 2</span>
+                <p>Get some big chungus</p>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="card blue-grey darken-1" style="margin-left: 0; margin-right: 0;">
+              <div class="card-content white-text">
+                <span class="card-title">Day 3</span>
+                <p>Drink Milo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 section">
+        <div class="divider"></div>
+        <h5>Price</h5>
+        <h6>SGD 2450</h6>
+        <div class="right-align">
+          <a onclick="M.toast({html: 'Added to cart!'})" class="right-align waves-effect waves-light btn-large social linkedin">
+            <i class="fas fa-cart-plus"></i>Add to Cart</a>
+        </div>
+          
+        </div>
+
+        <div class="col s12 section" style="margin-top: 5vh;">
+          <div class="divider"></div>
+          <h5>Reviews</h5>
+          <form method="post">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">rate_review</i>
+                <textarea id="review" class="materialize-textarea"></textarea>
+                <label for="review">Write a review!</label>
+              </div>
+              <div class="input-field col s5">
+                <i class="material-icons prefix">star</i>
+                <select>
+                  <option value="" disabled selected>Rate this listing</option>
+                  <option value="1">1 Star</option>
+                  <option value="2">2 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="5">5 Stars</option>
+                </select>
+              </div>
+              <div class="right-align">
+                <a onclick="M.toast({html: 'Review Added!'})" class="right-align waves-effect waves-light btn-large social google">
+                  <i class="fas fa-comment"></i>Post Review!</a>
+              </div>
+            </form>
+            </div>
+            
+
+          <div id="reviews-container" class="row">
+            <div class="col s12 left-align">
+              <div class="card horizontal review-card" style="margin-left: 0;">
+                <div class="card-image user-img red" style="background-image: url('images/bongo_cat.jpg');">
+                  <!-- <img src="images/background.jpg"> -->
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <h6>Chungus Says</h6>
+                    <p>yo this is so good must try yoooooo</p>
+                  </div>
+                  <div class="card-action">
+                    <div class="rating">
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star"></span>
+                    </div>
+                    <div>
+                      <p class="grey-text">2020-06-23 16:18:19</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12 left-align">
+              <div class="card horizontal review-card" style="margin-left: 0;">
+                <div class="card-image user-img red" style="background-image: url('images/bongo_cat.jpg');">
+                  <!-- <img src="images/background.jpg"> -->
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <h6>Chungus Says</h6>
+                    <p>yo this is so good must try yoooooo</p>
+                  </div>
+                  <div class="card-action">
+                    <div class="rating">
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star checked"></span>
+                      <span class="fas fa-star"></span>
+                    </div>
+                    <div>
+                      <p class="grey-text">2020-06-23 16:18:19</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="height: 10vh;"></div>
+
+  </div>
+
+
+
+  <footer class="page-footer grey darken-2">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">BED Assignment 02</h5>
+          <p class="grey-text text-lighten-4">Made with Express and the Materialize CSS Framework</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Members</h5>
+          <ul>
+            <li>Loh Kar Wei</li>
+            <li>Jess Kwek Zhi Chen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      DISM/FT/2A/02 2020
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
+
