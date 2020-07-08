@@ -1,17 +1,14 @@
 const user = require("../model/user");
 const travel_listings = require("../model/travel_listings");
+const jwt = require("../model/jwt");
 const reviews = require("../model/review");
 const express = require("express");
-const body_parser = require("body-parser");
 const multer = require("multer");
 const fs = require("fs");
 const util = require("util");
 const stream = require("stream");
 const pipeline = util.promisify(stream.pipeline);
-const readFile = util.promisify(fs.readFile);
-const url_encoded = body_parser.urlencoded({extended: false});
 const app = express();
-   
 const upload = multer({dest: `upload/`,limits:{fileSize:1048576}});
 const ERROR_MSG = "Internal Server Error";
 const type = upload.single("upload");
@@ -54,7 +51,7 @@ app.post("/users",async (req,res)=>{
     }
 })
 
-app.get("/users/:id",async(req,res)=>{
+app.get("/users/:id",jwt.checkTokenExists,async(req,res)=>{
     try{
         const results = await user.get_users_by_id(req.params.id);
         res.status(200).send(results);
@@ -64,7 +61,7 @@ app.get("/users/:id",async(req,res)=>{
     }
 })
 
-app.put("/users/:id",async(req,res)=>{
+app.put("/users/:id",jwt.checkUserId,async(req,res)=>{
     try{
         const userid = req.params.id;
         const username = req.body.username;
@@ -81,7 +78,7 @@ app.put("/users/:id",async(req,res)=>{
     }
 })
 
-app.get("/travel",async(req,res)=>{
+app.get("/travel",jwt.checkTokenExists,async(req,res)=>{
     try{
         const results = await travel_listings.get_travel_listings();
         res.status(200).send(results);
@@ -91,7 +88,7 @@ app.get("/travel",async(req,res)=>{
     }
 })
 
-app.post("/travel",async(req,res)=>{
+app.post("/travel",jwt.checkAdmin,async(req,res)=>{
     try{
         const title = req.body.title;
         const description = req.body.description;
@@ -109,7 +106,7 @@ app.post("/travel",async(req,res)=>{
     }
 })
 
-app.delete("/travel/:id/", async(req, res) => {
+app.delete("/travel/:id/",jwt.checkAdmin, async(req, res) => {
     try{
         const tid = req.params.id;
         const result = await travel_listings.delete_travel_listing(tid);
@@ -119,7 +116,7 @@ app.delete("/travel/:id/", async(req, res) => {
     }
 })
 
-app.put("/travel/:id/", async(req, res) => {
+app.put("/travel/:id/",jwt.checkAdmin, async(req, res) => {
     try{
         const tid = req.params.id;
         const title = req.body.title;
@@ -137,7 +134,7 @@ app.put("/travel/:id/", async(req, res) => {
     }
 })
 
-app.get("/travel/:id/itinerary", async(req, res) => {
+app.get("/travel/:id/itinerary",jwt.checkTokenExists, async(req, res) => {
     try{
         const tid = req.params.id;
         const result = await travel_listings.get_initinerary(tid);
@@ -147,7 +144,7 @@ app.get("/travel/:id/itinerary", async(req, res) => {
     }
 })
 
-app.post("/travel/:id/itinerary", async(req, res) => {
+app.post("/travel/:id/itinerary",jwt.checkAdmin, async(req, res) => {
     try{
         const tid = req.params.id;
         const day = req.body.day;
@@ -160,7 +157,7 @@ app.post("/travel/:id/itinerary", async(req, res) => {
     }
 })
 
-app.post("/user/:uid/travel/:tid/review", async(req, res) => {
+app.post("/user/:uid/travel/:tid/review",jwt.checkUserId, async(req, res) => {
     try{
         const uid = req.params.uid;
         const tid = req.params.tid;
@@ -174,7 +171,7 @@ app.post("/user/:uid/travel/:tid/review", async(req, res) => {
     }
 })
 
-app.get("/travel/:id/review", async(req, res) => {
+app.get("/travel/:id/review",jwt.checkTokenExists, async(req, res) => {
     try{
         const tid = req.params.id;
         const result = await reviews.get_review(tid);
@@ -191,12 +188,13 @@ app.post("/user/login/", async(req, res) => {
         const username = req.body.username;
         const password = req.body.password;
         const result = await user.login_user(username, password);
-        res.status(200).send(result);
+        const user = result.user
+        const token = await jwt.getToken(user.userid,user.role)
+        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax",secure:true}).status(200).send(result.message);
     }catch(err){
         console.log(err)
         res.status(500).send(ERROR_MSG);
     }
 })
-
 
 module.exports = app;

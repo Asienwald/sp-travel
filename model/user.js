@@ -21,20 +21,20 @@ const get_users = async () => {
 }
 
 const add_users = async (username, email, profile_pic_url, password) => {
-    const sql = "INSERT INTO users(username, email, profile_pic_url, password, salt) values(?,?,?, ? ,?)"
+    const sql = "INSERT INTO users(username, email, profile_pic_url, password, salt, role) values(?, ?, ?, ?, ?, ?)"
     const [hash, salt] = await generate_hash_password(password);
     [results, fields] = await dbConn.query(sql, [username, email, `${profile_pic_url}.png`, hash, salt]);
     return results.insertId
 }
 
 const get_users_by_id = async (userID) => {
-    const sql = "SELECT userid, username, profile_pic_url, created_at FROM users where userid=?";
+    const sql = "SELECT userid, username, profile_pic_url,role created_at FROM users where userid = ?";
     [results, fields] = await dbConn.query(sql, [userID]);
     return results
 }
 
 const update_users = async (userID, username, email, profile_pic_url, password) => {
-    const sql = "UPDATE users set username=?, email=? , profile_pic_url=?, password = ?, salt = ? where userID=?"
+    const sql = "UPDATE users set username = ?, email = ? , profile_pic_url = ?, password = ?, salt = ? where userID = ?"
     const [hash, salt] = await generate_hash_password(password);
     [results, fields] = await dbConn.query(sql, [username, email, profile_pic_url, hash, salt, userID]);
     return null
@@ -42,7 +42,7 @@ const update_users = async (userID, username, email, profile_pic_url, password) 
 }
 
 const login_user = async (username, password) => {
-    const [results, fields] = await dbConn.query("select password, salt from users where username = ?", [username]);
+    const [results, fields] = await dbConn.query("select password, salt, userid, role from users where username = ?", [username]);
     if (results.length == 0) throw new Error("no such user");
     else {
         const hash = results[0]["password"];
@@ -51,7 +51,7 @@ const login_user = async (username, password) => {
         const given_hash = await generate_hash_password(password, salt);
 
         const match = (hash == given_hash[0]) ? true : false;
-        if (match) return `Login Successful, welcome user ${username}`;
+        if (match) return {"message":`Login Successful, welcome user ${username}`,"user":{"userid":results.userid,"role":results.role}};
         else throw new Error("Wrong password");
     }
 }
