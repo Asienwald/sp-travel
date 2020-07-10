@@ -7,6 +7,7 @@ const multer = require("multer");
 const fs = require("fs");
 const util = require("util");
 const stream = require("stream");
+const path = require("path");
 const pipeline = util.promisify(stream.pipeline);
 const app = express();
 const upload = multer({dest: `upload/`,limits:{fileSize:1048576}});
@@ -14,6 +15,7 @@ const ERROR_MSG = "Internal Server Error";
 const type = upload.single("upload");
 const profile_pic_url = `./images/`
 const travel_url = `./travel/`
+
 const transfer = async (src,dest)=>{
     await pipeline(
         fs.createReadStream(src),
@@ -24,6 +26,7 @@ const transfer = async (src,dest)=>{
 }
 
 app.use(type)
+app.use(express.static(path.resolve("./public")))
 
 app.get("/users",async(req,res)=>{
     try{
@@ -181,20 +184,23 @@ app.get("/travel/:id/review",jwt.checkTokenExists, async(req, res) => {
         res.status(500).send(ERROR_MSG);
     }
 })
-
 // bonus feature login
-app.post("/user/login/", async(req, res) => {
+app.post("/user/login", async(req, res) => {
     try{
-        const username = req.body.username;
+        const email = req.body.email;
         const password = req.body.password;
-        const result = await user.login_user(username, password);
-        const user = result.user
+        const result = await user.login_user(email, password);
+        const users = result.user
         const token = await jwt.getToken(user.userid,user.role)
-        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax",secure:true}).status(200).send(result.message);
+        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax"}).status(200).send(result.message);
     }catch(err){
         console.log(err)
         res.status(500).send(ERROR_MSG);
     }
+})
+
+app.post("/logout",(req,res) =>{
+    res.clearCookie("sessionCookie");
 })
 
 module.exports = app;

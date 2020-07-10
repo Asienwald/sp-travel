@@ -22,6 +22,7 @@
 
         <!-- signed in nav buttons -->
         <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
+        <li><a href="admin" class="purple-text signed-in">Admin Console</a></li>
         <li><a class='dropdown-trigger blue-text' data-target='user-menu-dropdown'>Welcome, USERNAME</a></li>
       </ul>
 
@@ -32,6 +33,7 @@
 
         <!-- signed in nav buttons -->
         <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
+        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
         <li><a class='blue-text'>USERNAME</a></li>
         <li><a class='red-text' href="#">Logout</a></li>
       </ul>
@@ -46,12 +48,9 @@
 
   <!-- Modal Structure -->
   <div id="modal-login" class="modal">
-    <form method="post">
+    <form>
       <div class="modal-content">
         <h4>Login</h4>
-
-
-        <div id="signin-error-msg"></div>
         <div class="row">
           <div class="input-field col s12">
             <input type="email" class="validate" id="email-login">
@@ -64,12 +63,13 @@
             <label for="pwd-login">Password</label>
           </div>
         </div>
+        <div id="signin-error-msg"></div>
         <!-- <a href="#modal-signup" class="modal-trigger waves-effect waves-light btn-large social linkedin">
           <i class="fas fa-sign-in-alt"></i> No account? Sign Up Now!</a> -->
       </div>
       <div class="modal-footer">
         <a href="#" class="modal-close waves-effect waves-light btn red lighten-1">Cancel</a>
-        <button class="waves-effect waves-light btn teal lighten-1" type="submit">Login</button>
+        <button id="login" class="waves-effect waves-light btn teal lighten-1">Login</button>
       </div>
     </form>
       
@@ -78,7 +78,7 @@
 
   <!-- Modal Structure -->
   <div id="modal-signup" class="modal">
-    <form method="post">
+    <form id="register">
       <div class="modal-content">
         <h4>Sign Up</h4>
         <div id="signup-error-msg"></div>
@@ -119,134 +119,86 @@
     
   </div>
 
+  <!-- <div id="index-banner" class="parallax-container" style="height: 50vh;">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div style="height: 6vh;"></div>
+        <h1 class="header center blue-text text-darken-2">SP TRAVELS</h1>
+        <div class="row center">
+          <h5 class="header col s12 red-text text-lighten-2">Your one-stop travel needs.</h5>
+        </div>
+        <div class="row center">
+          <a href="#modal-login" class="modal-trigger btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+        </div>
+        <br><br>
 
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h1>Travel Packages</h1>
-      </div>
-      <div class="col s12">
-        <ul class="collapsible">
-          <li>
-            <div class="collapsible-header"><i class="material-icons">filter_list</i>Filter Options</div>
-            <div class="collapsible-body">
-              <form method="post">
-                <div class="row">
-                  <div class="input-field col s12 m6">
-                    <input id="country-input" type="text" class="validate">
-                    <label for="country-input">Country</label>
-                  </div>
-                  <div class="input-field col s6 m3">
-
-                    <input id="travel-period-from" type="text" class="datepicker">
-                    <label for="travel-period-from">Date From</label>
-                  </div>
-                  <div class="input-field col s6 m3">
-
-                    <input id="travel-period-to" type="text" class="datepicker">
-                    <label for="travel-period-to">Date To</label>
-                  </div>
-                  <div class="input-field col s6 m3">
-                    <input id="min-price" type="number" class="validate">
-                    <label for="min-price">Min Price</label>
-                  </div>
-                  <div class="input-field col s6 m3">
-                    <input id="max-price" type="number" class="validate">
-                    <label for="max-price">Max Price</label>
-                  </div>
-                  <div class="col s3 offset-s9">
-                    
-                    <button class="btn waves-effect waves-light" type="submit">Apply
-                      <i class="material-icons right">send</i>
-                    </button>
-                  </div>
-                </div>
-
-                
-              </form>
-            </div>
-          </li>
-        </ul>
       </div>
     </div>
+    <div class="parallax"><img src="images/background.jpg" alt=""></div>
+  </div> -->
 
-    
-
-    <div id="travel-listing-container" class="row">
-      <div class="col s12 m12 l6 ">
-        <div class="card waves-effect waves-light hoverable modal-trigger" >
-          <div class="card-image">
-            <img id="travel-img" src="images/pompeii.jpg">
-            
-          </div>
-          <div class="card-content ">
-            <span id="title" class="card-title">7D6N Pompeii, Italy</span>
-            <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
-            
-            
-            
-          </div>
-          <div class="card-action ">
-            <div class="row center ">
-              <p id="travel-period" class="grey-text col s6 ">Mar 2021</p>
-              <p id="price" class="grey-text col s6 ">SGD 2450</p>
-            </div>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-      <div class="col s12 m12 l6 ">
-        <div class="card waves-effect waves-light hoverable ">
-          <div class="card-image">
-            <img id="travel-img" src="images/japan.jpg">
-            
-          </div>
-          <div class="card-content ">
-            <span id="title" class="card-title">3D2N Tokyo, Japan</span>
-            <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
-            
-            
-            
-          </div>
-          <div class="card-action ">
-            <div class="row center ">
-              <p id="travel-period" class="grey-text col s6 ">Mar 2021</p>
-              <p id="price" class="grey-text col s6 ">SGD 2450</p>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-      <div class="col s12 m12 l6 ">
-        <div class="card waves-effect waves-light hoverable ">
-          <div class="card-image">
-            <img id="travel-img" src="images/bangkok.jpg">
-            
-          </div>
-          <div class="card-content ">
-            <span id="title" class="card-title">2D1N Bangkok, Thailand</span>
-            <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
-            
-            
-            
-          </div>
-          <div class="card-action ">
-            <div class="row center ">
-              <p id="travel-period" class="grey-text col s6 ">Mar 2021</p>
-              <p id="price" class="grey-text col s6 ">SGD 2450</p>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-      
+  <div class="carousel carousel-slider center">
+    <div class="carousel-fixed-item center">
+      <h3 class="waves-effect white-text darken-text-2">SP TRAVELS</h3>
+      <p class="white-text">Your one-stop travel solution.</p>
+    </div>
+    <div class="carousel-item white-text" href="#one!" style="background-image: url(images/singapore.jpg);">
+      <h1>Singapore</h1>
+    </div>
+    <div class="carousel-item amber white-text" href="#two!" style="background-image: url(images/italy.jpg);">
+      <h1>Italy</h1>
+    </div>
+    <div class="carousel-item green white-text" href="#three!" style="background-image: url(images/japan.jpg);">
+      <h1>Japan</h1>
+    </div>
+    <div class="carousel-item blue white-text" href="#four!" style="background-image: url(images/taiwan.jpg);">
+      <h1>Taiwan</h1>
+    </div>
+    <div class="carousel-item blue white-text" href="#four!" style="background-image: url(images/london.jpg);">
+      <h1>London</h1>
     </div>
   </div>
+        
 
+  <div class="container">
+    <div class="section">
+
+      <div style="height: 5vh;"></div>
+
+      <!--   Icon Section   -->
+      <div class="row" style="text-align: center;">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">card_travel</i></h2>
+            <h5 class="center">Travel</h5>
+
+            <p class="light">Visit places you've never seen before</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">explore</i></h2>
+            <h5 class="center">Explore</h5>
+
+            <p class="light">Many activities each day to keep you entertained!</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">thumb_up</i></h2>
+            <h5 class="center">Have fun!</h5>
+
+            <p class="light">No way you won't have fun!</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 5vh;"></div>
+
+    </div>
+  </div>
 
 
   <footer class="page-footer grey darken-2">
@@ -277,7 +229,9 @@
 
   <!--  Scripts-->
   <!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/login.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>

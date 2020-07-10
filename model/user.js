@@ -20,10 +20,11 @@ const get_users = async () => {
     return results
 }
 
-const add_users = async (username, email, profile_pic_url, password) => {
+const add_users = async (username, email, profile_pic_url, password,admin=false) => {
+    const role = admin? "admin":"user";
     const sql = "INSERT INTO users(username, email, profile_pic_url, password, salt, role) values(?, ?, ?, ?, ?, ?)"
     const [hash, salt] = await generate_hash_password(password);
-    [results, fields] = await dbConn.query(sql, [username, email, `${profile_pic_url}.png`, hash, salt]);
+    [results, fields] = await dbConn.query(sql, [username, email, `${profile_pic_url}.png`, hash, salt,role]);
     return results.insertId
 }
 
@@ -41,17 +42,17 @@ const update_users = async (userID, username, email, profile_pic_url, password) 
 
 }
 
-const login_user = async (username, password) => {
-    const [results, fields] = await dbConn.query("select password, salt, userid, role from users where username = ?", [username]);
+const login_user = async (email, password) => {
+    const [results, fields] = await dbConn.query("select password, salt, userid, role,username from users where email = ?", [email]);
     if (results.length == 0) throw new Error("no such user");
     else {
         const hash = results[0]["password"];
         const salt = results[0]["salt"];    
-
+        console.log(results);
         const given_hash = await generate_hash_password(password, salt);
 
         const match = (hash == given_hash[0]) ? true : false;
-        if (match) return {"message":`Login Successful, welcome user ${username}`,"user":{"userid":results.userid,"role":results.role}};
+        if (match) return {"message":`Login Successful, welcome user ${results[0].username}`,"user":{"userid":results[0].userid,"role":results[0].role}};
         else throw new Error("Wrong password");
     }
 }

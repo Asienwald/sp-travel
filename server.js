@@ -1,6 +1,7 @@
 const app = require("./controllers/app");
 const https = require("https");
 const { keys } = require("mysql2/lib/constants/charset_encodings");
+const { default: Axios } = require("axios");
 
 app.listen(3000, () => {
     console.log(`Hosted at http://localhost:3000`);

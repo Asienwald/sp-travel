@@ -22,11 +22,11 @@ const checkTokenExists = async (req,res,next)=>{
         next()
     }catch{
         // change the website ltr
-        res.status(302).redirect("google.com")
+        res.status(302).redirect("127.0.0.1/index.html")
     }
 }
 
-const checkAdmin = (req,res,next)=>{
+const checkAdmin = async (req,res,next)=>{
     try{
         const decoded = await verifyToken(req.cookies.sessionCookie);
         if(decoded.role =="admin"){
@@ -41,7 +41,7 @@ const checkAdmin = (req,res,next)=>{
     }
 }
 
-const checkUserId = (req,res,next)=>{
+const checkUserId = async (req,res,next)=>{
     try{
         const decoded = await verifyToken(req.cookies.sessionCookie);
         if(decoded.userid == req.params.id){

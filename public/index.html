@@ -22,7 +22,6 @@
 
         <!-- signed in nav buttons -->
         <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
-        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
         <li><a class='dropdown-trigger blue-text' data-target='user-menu-dropdown'>Welcome, USERNAME</a></li>
       </ul>
 
@@ -33,9 +32,8 @@
 
         <!-- signed in nav buttons -->
         <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
-        <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
         <li><a class='blue-text'>USERNAME</a></li>
-        <li><a class='red-text' href="#">Logout</a></li>
+        <li><a id="logout" class='red-text' href="#">Logout</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -43,17 +41,14 @@
 
   <!-- Dropdown Structure -->
   <ul id='user-menu-dropdown' class='dropdown-content'>
-    <li><a class="red-text">Logout</a></li>
+    <li><a id="logout" class="red-text">Logout</a></li>
   </ul>
 
   <!-- Modal Structure -->
   <div id="modal-login" class="modal">
-    <form method="post">
+    <form>
       <div class="modal-content">
         <h4>Login</h4>
-
-
-        <div id="signin-error-msg"></div>
         <div class="row">
           <div class="input-field col s12">
             <input type="email" class="validate" id="email-login">
@@ -66,12 +61,13 @@
             <label for="pwd-login">Password</label>
           </div>
         </div>
+        <div id="signin-error-msg"></div>
         <!-- <a href="#modal-signup" class="modal-trigger waves-effect waves-light btn-large social linkedin">
           <i class="fas fa-sign-in-alt"></i> No account? Sign Up Now!</a> -->
       </div>
       <div class="modal-footer">
         <a href="#" class="modal-close waves-effect waves-light btn red lighten-1">Cancel</a>
-        <button class="waves-effect waves-light btn teal lighten-1" type="submit">Login</button>
+        <button id="login" class="waves-effect waves-light btn teal lighten-1">Login</button>
       </div>
     </form>
       
@@ -80,7 +76,7 @@
 
   <!-- Modal Structure -->
   <div id="modal-signup" class="modal">
-    <form method="post">
+    <form id="register">
       <div class="modal-content">
         <h4>Sign Up</h4>
         <div id="signup-error-msg"></div>
@@ -231,11 +227,12 @@
 
   <!--  Scripts-->
   <!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>
-
+  <script src="./js/login.js"></script>
 
   </body>
 </html>
