@@ -199,8 +199,9 @@ app.post("/user/login", async(req, res) => {
     }
 })
 
-app.post("/logout",(req,res) =>{
-    res.clearCookie("sessionCookie");
+app.post("/user/logout",(req,res) =>{
+    console.log("hello")
+    res.clearCookie("sessionCookie").status(200).send();
 })
 
 module.exports = app;
