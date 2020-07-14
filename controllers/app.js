@@ -8,6 +8,7 @@ const fs = require("fs");
 const util = require("util");
 const stream = require("stream");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const pipeline = util.promisify(stream.pipeline);
 const app = express();
 const upload = multer({dest: `upload/`,limits:{fileSize:1048576}});
@@ -27,7 +28,7 @@ const transfer = async (src,dest)=>{
 
 app.use(type)
 app.use(express.static(path.resolve("./public")))
-
+app.use(cookieParser())
 app.get("/users",async(req,res)=>{
     try{
         const results = await user.get_users();
@@ -46,11 +47,11 @@ app.post("/users",async (req,res)=>{
         const src = req.file.path;
         const dest = `${profile_pic_url}${username}.jpg`;
         await transfer(src,dest);
-        const results = await user.add_users(username,email,username, password);
+        const results = await user.add_users(username,email,username, password,true);
         res.type("json").status(201).send(`{"userid":${results}}`);
     }catch(err){
         console.log(err);
-        res.status(500).send(ERROR_MSG);
+        res.status(err.errno==1062?422:500).send(err.errno==1062?"Unprocessable Entity":"Internal Server Error");
     }
 })
 
@@ -184,6 +185,10 @@ app.get("/travel/:id/review",jwt.checkTokenExists, async(req, res) => {
         res.status(500).send(ERROR_MSG);
     }
 })
+
+app.get("/admin",jwt.checkAdmin,async(req,res)=>{
+    res.status(200).sendFile(path.resolve("./public/admin_console.html"));
+})
 // bonus feature login
 app.post("/user/login", async(req, res) => {
     try{
@@ -191,8 +196,9 @@ app.post("/user/login", async(req, res) => {
         const password = req.body.password;
         const result = await user.login_user(email, password);
         const users = result.user
-        const token = await jwt.getToken(user.userid,user.role)
-        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax"}).status(200).send(result.message);
+        const token = await jwt.getToken(users.userid,users.role);
+        const message = users.role =="admin" ? "Welcome admin!" : result.message;
+        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax"}).status(200).send(message);
     }catch(err){
         console.log(err)
         res.status(500).send(ERROR_MSG);
@@ -200,7 +206,6 @@ app.post("/user/login", async(req, res) => {
 })
 
 app.post("/user/logout",(req,res) =>{
-    console.log("hello")
     res.clearCookie("sessionCookie").status(200).send();
 })
 
