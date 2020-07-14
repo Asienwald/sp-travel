@@ -49,7 +49,7 @@ $("document").ready(()=>{
         event.preventDefault();
         axios.post("http://127.0.0.1:3000/user/logout",config).then((response)=>{
             localStorage.removeItem("status");
-            location.reload();
+            window.location.href = "http://127.0.0.1:3000";
         })
         
         

@@ -6,7 +6,6 @@ const getToken  = async(userid,role)=>{
     const token = await jwt.sign({
         "userid": userid,
         "role": role,
-        "issued":date,
     },secret,{algorithm:"HS512",expiresIn: 10*60});
     return token;
 }
@@ -29,7 +28,6 @@ const checkTokenExists = async (req,res,next)=>{
 const checkAdmin = async (req,res,next)=>{
     try{
         const decoded = await verifyToken(req.cookies.sessionCookie);
-        console.log(decoded)
         if(decoded.role =="admin"){
             next()
         }

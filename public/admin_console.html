@@ -36,7 +36,7 @@
         <li><a href="travel_packages.html" class="signed-in">Travel Packages</a></li>
         <li><a href="admin_console.html" class="purple-text signed-in">Admin Console</a></li>
         <li><a class='blue-text'>USERNAME</a></li>
-        <li><a class='red-text' href="#">Logout</a></li>
+        <li><a id="logout" class='red-text' href="#">Logout</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -44,7 +44,7 @@
 
   <!-- Dropdown Structure -->
   <ul id='user-menu-dropdown' class='dropdown-content'>
-    <li><a class="red-text">Logout</a></li>
+    <li><a id="logout" class='red-text' href="#">Logout</a></li>
   </ul>
 
   <!-- Modal Structure -->
@@ -347,11 +347,12 @@
 
   <!--  Scripts-->
   <!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>
-
+  <script src="./js/user.js"></script>
 
   </body>
 </html>
