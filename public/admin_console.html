@@ -139,7 +139,7 @@
         </ul>
       </div>
       <div id="add-travel-container" class="col s12">
-        <form method="post">
+        <form id="travel" method="post">
           <div class="row">
             <div class="input-field col s12" style="margin-bottom: 5vh;">
               <input id="title" type="text" class="validate">
@@ -167,7 +167,7 @@
             
               <div class="btn">
                 <span>Image File</span>
-                <input type="file">
+                <input id="image" type="file" accept='image/*'>
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
@@ -175,7 +175,7 @@
             </div>
 
             <div class="input-field col s12 m6">
-              <input id="price" type="number" class="validate">
+              <input id="price" type="number" onkeydown="return event.keyCode !== 69" class="validate">
               <label for="price">Price (SGD)</label>
             </div>
 
@@ -185,7 +185,7 @@
             </div>
 
             <div class="right-align">
-              <a style="margin-top: 3vh;" onclick="M.toast({html: 'Travel Package Added!'})" class="right-align waves-effect waves-light btn-large social google">
+              <a style="margin-top: 3vh;" id="submit" class="right-align waves-effect waves-light btn-large social google">
                 <i class="fas fa-plus-square"></i>Add Travel Listing</a>
             </div>
           </div>
@@ -353,6 +353,7 @@
   <script src="js/init.js"></script>
   <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>
   <script src="./js/user.js"></script>
+  <script src="./js/add_travel_listing.js"></script>
 
   </body>
 </html>

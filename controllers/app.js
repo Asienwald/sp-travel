@@ -22,7 +22,7 @@ const transfer = async (src,dest)=>{
         fs.createReadStream(src),
         fs.createWriteStream(dest)
     ).then(
-        fs.unlink(src,()=>{})
+       console.log("yaya")
     );
 }
 
@@ -100,6 +100,7 @@ app.post("/travel",jwt.checkAdmin,async(req,res)=>{
         const country = req.body.country;
         const travel_period = req.body.travel_period;
         const src = req.file.path;
+        console.log(req.file);
         const dest = `${Date.now()}.jpg`;
         await transfer(src,`${travel_url}${dest}`);
         const results = await travel_listings.add_travel_listings(title,description,dest,price,country,travel_period);

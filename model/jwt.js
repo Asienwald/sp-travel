@@ -15,6 +15,10 @@ const verifyToken = async(token)=>{
     return decoded
 }
 
+const refreshToken = async(decoded,res)=>{
+    const token = await getToken(decoded.userid,decoded.role);
+    res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax"});
+}
 const checkTokenExists = async (req,res,next)=>{
     try{
         const decoded = await verifyToken(req.cookies.sessionCookie);
@@ -28,6 +32,7 @@ const checkTokenExists = async (req,res,next)=>{
 const checkAdmin = async (req,res,next)=>{
     try{
         const decoded = await verifyToken(req.cookies.sessionCookie);
+        refreshToken(decoded,res);
         if(decoded.role =="admin"){
             next()
         }
