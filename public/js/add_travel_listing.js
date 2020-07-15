@@ -55,7 +55,8 @@ $("document").ready(()=>{
             axios.post("http://127.0.0.1:3000/travel",body,config).then((response)=>{
                 M.toast({html: "Added travel listing!"});
                 $("#travel").trigger("reset");
-            })
+            });
+            body = new FormData();
         }
     })
 

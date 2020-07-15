@@ -14,15 +14,17 @@ const app = express();
 const upload = multer({dest: `upload/`,limits:{fileSize:1048576}});
 const ERROR_MSG = "Internal Server Error";
 const type = upload.single("upload");
-const profile_pic_url = `./images/`
-const travel_url = `./travel/`
+const profile_pic_url = `./public/images/`
+const travel_url = `./public/travel/`
 
 const transfer = async (src,dest)=>{
     await pipeline(
         fs.createReadStream(src),
         fs.createWriteStream(dest)
-    ).then(
-       console.log("yaya")
+    ).then(()=>{
+        fs.unlink(src,()=>{});
+    }
+       
     );
 }
 
