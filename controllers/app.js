@@ -118,7 +118,6 @@ app.delete("/travel/:id/",jwt.checkAdmin, async(req, res) => {
     try{
         const tid = req.params.id;
         const travel = await travel_listings.get_travel_listings_by_id(tid);
-        console.log(travel);
         fs.unlink(`${travel_url}${travel[0].image_url}`,async()=>{
             const result = await travel_listings.delete_travel_listing(tid);
             res.status(204).send(null);
@@ -141,7 +140,6 @@ app.put("/travel/:id/",jwt.checkAdmin, async(req, res) => {
             const dest = `${Date.now()}.jpg`;
             await transfer(src,`${travel_url}${dest}`);
             const travel = await travel_listings.get_travel_listings_by_id(tid);
-            console.log(travel);
             fs.unlink(`${travel_url}${travel[0].image_url}`,async()=>{
                 const result = await travel_listings.update_travel_listing(title, description, price, country, travel_period, tid, dest);
             });

@@ -48,7 +48,7 @@ $("document").ready(()=>{
     $("#logout").click(()=>{
         event.preventDefault();
         axios.post("http://127.0.0.1:3000/user/logout",config).then((response)=>{
-            localStorage.removeItem("status");
+            localStorage.clear()
             window.location.href = "http://127.0.0.1:3000";
         })
         

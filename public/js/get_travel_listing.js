@@ -38,7 +38,6 @@ $("document").ready(()=>{
         let container = $("#travel-listing-container");
         container.empty();
         axios.get("http://127.0.0.1:3000/travel").then((response)=>{
-            console.log(response.data);
             response.data.every(createCard);
         })
         

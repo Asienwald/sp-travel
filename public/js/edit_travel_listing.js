@@ -1,5 +1,12 @@
 $("document").ready(()=>{
-    
+    const createItineraryRow = (data)=>{
+        let row = $("<tr></tr>");
+        let day = $(`<td>${data.day}</td>`);
+        let activity = $(`<td>${data.activity}</td>`);
+        row.append(day);
+        row.append(activity);
+        $("#data").prepend(row);
+    }
     let travelData =  JSON.parse(localStorage.getItem("data"))
     fill_form(travelData);
     $("#update").click(()=>{
@@ -24,6 +31,22 @@ $("document").ready(()=>{
         axios.delete(`http://127.0.0.1:3000/travel/${travelData.travel_id}`).then((response)=>{
             window.location.href = `http://127.0.0.1:3000/admin`
         })
+    })
+    $(`#itinerary`).click(()=>{
+        axios.get(`http://127.0.0.1:3000/travel/${travelData.travel_id}/itinerary`).then((response)=>{
+            response.data.every(createItineraryRow);
+        })
+    })
+    $("#add").click(()=>{
+        itinerary_data.every(clear);
+        itinerary_data.every(validate);
+        if(validated){
+            itinerary_data.every(appendForm);
+            axios.post(`http://127.0.0.1:3000/travel/${travelData.travel_id}/itinerary`,body,config).then((response)=>{
+                window.location.href = "http://127.0.0.1:3000/edit"
+            })
+        }
+        
     })
 
 })

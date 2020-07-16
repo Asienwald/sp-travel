@@ -2,7 +2,7 @@ let validated = true;
 let body = new FormData();
 const config =  { headers: { 'Content-Type': 'multipart/form-data' } };
 const data = ["title","travel-period-from","travel-period-to","country","price","description"];
-
+const itinerary_data = ["day","activity"]
 const validate = (title)=>{
     const field = $(`#${title}`);
     if(field.val().trim() == ""){
