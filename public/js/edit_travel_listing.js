@@ -1,6 +1,6 @@
 $("document").ready(()=>{
     const createItineraryRow = (data)=>{
-        let row = $("<tr></tr>");
+        let row = $('<tr class="created"></tr>');
         let day = $(`<td>${data.day}</td>`);
         let activity = $(`<td>${data.activity}</td>`);
         row.append(day);
@@ -33,6 +33,10 @@ $("document").ready(()=>{
         })
     })
     $(`#itinerary`).click(()=>{
+        let yo = document.getElementsByClassName("created");
+        for(x = 0; x < yo.length; x++){
+            yo[x].remove();
+        }
         axios.get(`http://127.0.0.1:3000/travel/${travelData.travel_id}/itinerary`).then((response)=>{
             response.data.every(createItineraryRow);
         })
