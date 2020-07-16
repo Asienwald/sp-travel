@@ -221,4 +221,8 @@ app.post("/user/logout",(req,res) =>{
     res.clearCookie("sessionCookie").status(200).send();
 })
 
+app.get("/edit",(req,res)=>{
+    res.status(200).sendFile(path.resolve("./public/edit_travel.html"))
+})
+
 module.exports = app;

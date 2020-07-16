@@ -25,10 +25,15 @@ $("document").ready(()=>{
         card.append(imageContainer);
         card.append(content);
         card.append(action);
+        card.click(()=>{
+            window.localStorage.setItem("data",JSON.stringify(data));
+            window.location.href = "http://127.0.0.1:3000/edit";
+        })
         innerContaner.append(card);
         container.append(innerContaner);
         return true;
     }
+
     $("#manage").click(()=>{
         let container = $("#travel-listing-container");
         container.empty();

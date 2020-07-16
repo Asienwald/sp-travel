@@ -2,6 +2,7 @@ let validated = true;
 let body = new FormData();
 const config =  { headers: { 'Content-Type': 'multipart/form-data' } };
 const data = ["title","travel-period-from","travel-period-to","country","price","description"];
+
 const validate = (title)=>{
     const field = $(`#${title}`);
     if(field.val().trim() == ""){
@@ -10,17 +11,20 @@ const validate = (title)=>{
     }
     return true
 }
+
 const clear = (title)=>{
     const field = $(`#${title}`);
     field.attr("style","");
     return true;
 }
+
 const focus = (title)=>{
     $(`#${title}`).focus(()=>{
         clear(title);
     })
     return true;
 }
+
 const appendForm = (title)=>{
     console.log(title);
     const field = $(`#${title}`);
@@ -37,6 +41,15 @@ const appendForm = (title)=>{
    
 }
 
+const fill_form = (data)=>{
+    $(`#title`).trigger("focus").val(data.title);
+    $(`#travel-period-from`).trigger("focus").val(data.travel_period.split("-")[0])
+    $(`#travel-period-to`).trigger("focus").val(data.travel_period.split("-")[1])
+    $(`#country`).trigger("focus").val(data.country);
+    $(`#price`).trigger("focus").val(data.price);
+    $(`#description`).trigger("focus").val(data.description);
+}
+
 exports = {
     validated: true,
     body: body,
@@ -46,5 +59,5 @@ exports = {
     clear: clear,
     focus: focus,
     appendForm: appendForm,
-
+    fill_form: fill_form
 }
