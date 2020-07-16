@@ -21,7 +21,9 @@ $("document").ready(()=>{
         }
     })
     $("#delete").click(()=>{
-        axios.delete()
+        axios.delete(`http://127.0.0.1:3000/travel/${travelData.travel_id}`).then((response)=>{
+            window.location.href = `http://127.0.0.1:3000/admin`
+        })
     })
 
 })
