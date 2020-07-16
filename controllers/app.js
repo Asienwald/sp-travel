@@ -10,6 +10,7 @@ const stream = require("stream");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const pipeline = util.promisify(stream.pipeline);
+const fsPromises = require("fs.promises");
 const app = express();
 const upload = multer({dest: `upload/`,limits:{fileSize:1048576}});
 const ERROR_MSG = "Internal Server Error";
@@ -131,10 +132,18 @@ app.put("/travel/:id/",jwt.checkAdmin, async(req, res) => {
         const price = req.body.price;
         const country = req.body.country;
         const travel_period = req.body.travel_period;
-        const src = req.file.path;
-        const dest = `${Date.now()}.jpg`;
-        await transfer(src,`${travel_url}${dest}`);
-        const result = await travel_listings.update_travel_listing(title, description, dest, price, country, travel_period,tid);
+        if(req.file != undefined || req.file !=null){
+            const src = req.file.path;
+            const dest = `${Date.now()}.jpg`;
+            await transfer(src,`${travel_url}${dest}`);
+            const travel = await travel_listings.get_travel_listings_by_id(tid);
+            await fsPromises.unlink(`${travel_url}${travel.image_url}`);
+            const result = await travel_listings.update_travel_listing(title, description, price, country, travel_period, tid, dest);
+        }
+        else{
+            const result = await travel_listings.update_travel_listing(title, description,price, country, travel_period, tid);
+        }
+
         res.status(204).send(null);
     }catch(err){
         res.status(500).send(ERROR_MSG);

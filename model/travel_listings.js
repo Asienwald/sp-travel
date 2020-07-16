@@ -8,6 +8,11 @@ const get_travel_listings = async () => {
     return results
 }
 
+const get_travel_listings_by_id = async (id) => {
+    const sql = "SELECT * FROM travel_listings where travel_id=? ";
+    const [results, fields] = await dbConn.query(sql,[id]);
+    return results
+}
 
 const add_travel_listings = async (title, description, image_url, price, country, travel_period) => {
     const sql = "INSERT INTO travel_listings(title, description, image_url ,price,country,travel_period) values(?,?,?,?,?,?)"
@@ -22,9 +27,9 @@ const delete_travel_listing = async (id) => {
     return results.affectedRows;
 }
 
-const update_travel_listing = async (title, description, image_url, price, country, travel_period,travel_id) => {
-    const sql = "update travel_listings set title=?, description=?, image_url=?, price=?, country=?, travel_period=? where travel_id=?;"
-    const [results, fields] = await dbConn.query(sql, [title, description, image_url, price, country, travel_period,travel_id]);
+const update_travel_listing = async (title, description, price, country, travel_period, travel_id, image_url="") => {
+    const sql = image_url != "" ? "update travel_listings set title=?, description=?, image_url=?, price=?, country=?, travel_period=? where travel_id=?;" :  "update travel_listings set title=?, description=?, price=?, country=?, travel_period=? where travel_id=?;" 
+    const [results, fields] = await dbConn.query(sql, image_url != "" ? [title, description, image_url, price, country, travel_period,travel_id] :  [title, description, price, country, travel_period,travel_id] );
     return results.affectedRows;
 }
 
@@ -43,6 +48,7 @@ const create_itinerary = async (travel_id, day, activity) => {
 
 module.exports = {
     get_travel_listings: get_travel_listings,
+    get_travel_listings_by_id: get_travel_listings_by_id,
     add_travel_listings: add_travel_listings,
     delete_travel_listing: delete_travel_listing,
     update_travel_listing: update_travel_listing,

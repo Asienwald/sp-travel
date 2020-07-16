@@ -134,11 +134,11 @@
     <div class="row">
       <div class="col s12">
         <ul class="tabs" style="margin-bottom: 3vh;">
-          <li class="tab col s6"><a href="#add-travel-container">Add Travel Packages</a></li>
-          <li id="manage" class="tab col s6"><a href="#manage-travel-container">Manage Existing Travel Packages</a></li>
+          <li class="tab col s6"><a href="#edit-travel-container">Edit Travel Packages</a></li>
+          <li id="manage" class="tab col s6"><a href="#manage-itinerary">Manage Itinerary</a></li>
         </ul>
       </div>
-      <div id="add-travel-container" class="col s12">
+      <div id="edit-travel-container" class="col s12">
         <form id="travel" method="post">
           <div class="row">
             <div class="input-field col s12" style="margin-bottom: 5vh;">
@@ -185,62 +185,16 @@
             </div>
 
             <div class="right-align">
-              <a style="margin-top: 3vh;" id="submit" class="right-align waves-effect waves-light btn-large social google">
+            <a style="margin-top: 3vh;" id="delete" class="right-align waves-effect waves-light btn-large social google">
+                <i class="fas fa-trash-alt"></i>Delete Travel Listing</a>
+              <a style="margin-top: 3vh;" id="update" class="right-align waves-effect waves-light btn-large social whatsapp">
                 <i class="fas fa-plus-square"></i>Add Travel Listing</a>
             </div>
           </div>
         </form>
       </div>
-      <div id="manage-travel-container" class="col s12">
-        <div class="row">
-          <div class="col s12">
-            <ul class="collapsible">
-              <li>
-                <div class="collapsible-header"><i class="material-icons">filter_list</i>Filter Options</div>
-                <div class="collapsible-body">
-                  <form method="post">
-                    <div class="row">
-                      <div class="input-field col s12 m6">
-                        <input id="country-input" type="text" class="validate">
-                        <label for="country-input">Country</label>
-                      </div>
-                      <div class="input-field col s6 m3">
-    
-                        <input id="travel-period-from" type="text" class="datepicker">
-                        <label for="travel-period-from">Date From</label>
-                      </div>
-                      <div class="input-field col s6 m3">
-    
-                        <input id="travel-period-to" type="text" class="datepicker">
-                        <label for="travel-period-to">Date To</label>
-                      </div>
-                      <div class="input-field col s6 m3">
-                        <input id="min-price" type="number" class="validate">
-                        <label for="min-price">Min Price</label>
-                      </div>
-                      <div class="input-field col s6 m3">
-                        <input id="max-price" type="number" class="validate">
-                        <label for="max-price">Max Price</label>
-                      </div>
-                      <div class="col s3 offset-s9">
-                        
-                        <button class="btn waves-effect waves-light" type="submit">Apply
-                          <i class="material-icons right">send</i>
-                        </button>
-                      </div>
-                    </div>
-    
-                    
-                  </form>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div id="manage-itinerary" class="col s12">
 
-        <div id="travel-listing-container" class="row">
-          
-        </div>
       </div>
     </div>
 
@@ -282,10 +236,8 @@
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="https://kit.fontawesome.com/07a638cb97.js" crossorigin="anonymous"></script>
-  <script src="js/user.js"></script>
-  <script src="js/form.js"></script>
-  <script src="js/add_travel_listing.js"></script>
-  <script src="js/get_travel_listing.js"></script>
+  <script src="./js/user.js"></script>
+  <script src="./js/add_travel_listing.js"></script>
   </body>
 </html>
 
