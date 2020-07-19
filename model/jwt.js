@@ -6,7 +6,7 @@ const getToken  = async(userid,role)=>{
     const token = await jwt.sign({
         "userid": userid,
         "role": role,
-    },secret,{algorithm:"HS512",expiresIn: 10*60});
+    },secret,{algorithm:"HS512",expiresIn: "1d"});
     return token;
 }
 
@@ -19,13 +19,35 @@ const refreshToken = async(decoded,res)=>{
     const token = await getToken(decoded.userid,decoded.role);
     res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax"});
 }
+
+
 const checkTokenExists = async (req,res,next)=>{
     try{
         const decoded = await verifyToken(req.cookies.sessionCookie);
+        console.log(decoded);
         next()
-    }catch{
+    }catch(err){
+        // console.log(err.name);
+        if(err.name == "TokenExpiredError"){
+            res.clearCookie("sessionCookie").status(200).redirect("/");
+        }
         // change the website ltr
-        res.status(302).redirect("127.0.0.1/index.html")
+        res.status(302).redirect("/");
+    }
+}
+
+// for checking of nav header to send
+const checkTokenValid = async(req, res, next) => {
+    try{
+        let decoded = await verifyToken(req.cookies.sessionCookie);
+        req.token = decoded;
+        next();
+    }catch(err){
+        if(err.name == "TokenExpiredError"){
+            res.clearCookie("sessionCookie").status(200).redirect("/");
+        }
+        req.token = null;
+        next();
     }
 }
 
@@ -43,6 +65,16 @@ const checkAdmin = async (req,res,next)=>{
         // change the website ltr
         console.log(err);
         res.status(400).send("Unauthorized!")
+    }
+}
+
+const getUserId = async(req, res, next) => {
+    try{
+        const decoded = await verifyToken(req.cookies.sessionCookie);
+        req.uid = decoded.userid;
+        next();
+    }catch{
+        res.status(400).send("Error!");
     }
 }
 
@@ -68,5 +100,7 @@ module.exports={
     "getToken": getToken,
     "checkTokenExists":checkTokenExists,
     "checkAdmin":checkAdmin,
-    "checkUserId": checkUserId
+    "checkUserId": checkUserId,
+    "checkTokenValid": checkTokenValid,
+    "getUserId": getUserId
 }

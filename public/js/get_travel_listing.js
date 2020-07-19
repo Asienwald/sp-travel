@@ -1,45 +1,57 @@
 $("document").ready(()=>{
-    const createCard = (data)=>{
-        let container = $("#travel-listing-container");
-        let innerContaner = $(`<div class="col s12 m12 l6 "></div>`);
-        let card = $(` <div class="card waves-effect waves-light hoverable modal-trigger" ></div>`);
+    
 
-        let imageContainer = $(`<div class="card-image"></div>`);
-        let image = $(`<img id="travel-img" src=./travel/${data.image_url}>`);
-        imageContainer.append(image);
+    // $("#manage").click(()=>{
+    //     let container = $("#travel-listing-container");
+    //     container.empty();
+    //     axios.get("http://127.0.0.1:3000/travel").then((response)=>{
+    //         response.data.every(createCard);
+    //     })
         
-        let content = $(`<div class="card-content "></div>`);
-        let title = $(`<span id="title" class="card-title">${data.title}</span>`);
-        let description = $(`<p id="description">${data.description}</p>`)
-        content.append(title);
-        content.append(description);
-
-        let action = $(`<div class="card-action "></div>`);
-        let row = $(`<div class="row center "></div>`);
-        let travelPeriod = $(`<p id="travel-period" class="grey-text col s6 ">${data.travel_period}</p>`);
-        let price = $(`<p id="price" class="grey-text col s6 ">${data.price}</p>`);
-        row.append(travelPeriod);
-        row.append(price);
-        action.append(row);
-
-        card.append(imageContainer);
-        card.append(content);
-        card.append(action);
-        card.click(()=>{
-            window.localStorage.setItem("data",JSON.stringify(data));
-            window.location.href = "http://127.0.0.1:3000/edit";
-        })
-        innerContaner.append(card);
-        container.append(innerContaner);
-        return true;
-    }
-
-    $("#manage").click(()=>{
-        let container = $("#travel-listing-container");
-        container.empty();
-        axios.get("http://127.0.0.1:3000/travel").then((response)=>{
-            response.data.every(createCard);
-        })
-        
-    })
+    // })
+    initTravelListings();
 })
+
+const createCard = (data)=>{
+    let container = $("#travel-listing-container");
+    let innerContaner = $(`<div class="col s12 m12 l6 "></div>`);
+    let card = $(` <div class="card waves-effect waves-light hoverable modal-trigger" ></div>`);
+
+    let imageContainer = $(`<div class="card-image"></div>`);
+    let image = $(`<img id="travel-img" src=./travel/${data.image_url}>`);
+    imageContainer.append(image);
+    
+    let content = $(`<div class="card-content "></div>`);
+    let title = $(`<span id="title" class="card-title">${data.title}</span>`);
+    // let description = $(`<p id="description">${data.description}</p>`)
+    content.append(title);
+    // content.append(description);
+
+    let action = $(`<div class="card-action "></div>`);
+    let row = $(`<div class="row center "></div>`);
+    let travelPeriod = $(`<p id="travel-period" class="grey-text col s6 ">${data.travel_period}</p>`);
+    let price = $(`<p id="price" class="grey-text col s6 ">${data.price}</p>`);
+    row.append(travelPeriod);
+    row.append(price);
+    action.append(row);
+
+    card.append(imageContainer);
+    card.append(content);
+    card.append(action);
+    card.click(()=>{
+        window.localStorage.setItem("data",JSON.stringify(data));
+        window.location.href = "/view";
+    })
+    innerContaner.append(card);
+    container.append(innerContaner);
+    return true;
+}
+
+function initTravelListings(){
+    let container = $("#travel-listing-container");
+    container.empty();
+    axios.get("/travel").then((response)=>{
+        console.log(response);
+        response.data.every(createCard);
+    })
+}

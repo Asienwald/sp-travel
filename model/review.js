@@ -10,8 +10,9 @@ const create_review = async(uid, tid, content, rating) => {
 }
 
 const get_review = async(tid) => {
-    const sql = "select reviews.travel_id, reviews.content, reviews.rating, users.username, reviews.created_at from reviews inner join users on reviews.user_id = users.userid where reviews.user_id = ?;";
+    const sql = "select reviews.travel_id, reviews.content, reviews.rating, users.username, users.profile_pic_url, reviews.created_at from reviews inner join users on reviews.user_id = users.userid where reviews.travel_id = ?;";
     const [results, fields] = await dbConn.query(sql, [tid]);
+    console.log(results);
     return results;
 }
 

@@ -1,6 +1,7 @@
 (function($){
   $(function(){
 
+  
     $('.sidenav').sidenav();
     $('.sidenav-trigger').sidenav();
     $('.parallax').parallax();
@@ -22,5 +23,7 @@
     $('select').formSelect();
     $('.tabs').tabs();
 
+
   }); // end of document ready
 })(jQuery); // end of jQuery name space
+

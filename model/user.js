@@ -43,7 +43,7 @@ const update_users = async (userID, username, email, profile_pic_url, password) 
 }
 
 const login_user = async (email, password) => {
-    const [results, fields] = await dbConn.query("select password, salt, userid, role,username from users where email = ?", [email]);
+    const [results, fields] = await dbConn.query("select password, salt, userid, role, username from users where email = ?", [email]);
     if (results.length == 0) throw new Error("no such user");
     else {
         const hash = results[0]["password"];

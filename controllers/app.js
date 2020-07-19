@@ -30,8 +30,57 @@ const transfer = async (src,dest)=>{
 }
 
 app.use(type)
-app.use(express.static(path.resolve("./public")))
+app.use(express.static(path.resolve("./public/")))
 app.use(cookieParser())
+
+// #region Site Routing
+
+app.get("/getHeader", jwt.checkTokenValid, async(req, res) => {
+    try{
+        // let decoded = jwt.verifyToken(req.cookies.sessionCookie);
+        if(req.token == null){
+            res.status(200).sendFile(path.resolve("./public/signedout_header.html"));
+        }else if(req.token.role == "admin"){
+            res.status(200).sendFile(path.resolve("./public/admin_header.html"));
+        }else{
+            res.status(200).sendFile(path.resolve("./public/signedin_header.html"));
+        }
+    }catch(err){
+        console.log(err);
+        res.status(200).sendFile(path.resolve("./public/signedout_header.html"));
+    }
+})
+
+app.get("/", async(req, res) => {
+    try{
+        res.status(200).sendFile(path.resolve("./public/index.html"));
+    }catch(err){
+        console.log(err);
+        res.status(500).send(path.resolve("./public/error.html"));
+    }
+})
+
+app.get("/travelPackages", jwt.checkTokenExists, async(req, res) => {
+    try{
+        res.status(200).sendFile(path.resolve("./public/travel_packages.html"));
+    }catch(err){
+        console.log(err);
+        res.status(500).send(path.resolve("./public/error.html"));
+    }
+})
+
+app.get("/view", jwt.checkTokenExists, async(req, res) => {
+    try{
+        res.status(200).sendFile(path.resolve("./public/listing_details.html"));
+    }catch(err){
+        console.log(err);
+        res.status(500).send(path.resolve("./public/error.html"));
+    }
+})
+
+//#endregion
+
+
 app.get("/users",async(req,res)=>{
     try{
         const results = await user.get_users();
@@ -178,6 +227,20 @@ app.post("/travel/:id/itinerary",jwt.checkAdmin, async(req, res) => {
     }
 })
 
+app.post("/travel/:tid/review",jwt.getUserId, async(req, res) => {
+    try{
+        const uid = req.uid;
+        const tid = req.params.tid;
+        const content = req.body.content;
+        const rating = req.body.rating;
+        const result = await reviews.create_review(uid, tid, content, rating);
+        res.status(201).send(`{"reviewid":${result}}`);
+    }catch(err){
+        console.log(err)
+        res.status(500).send(ERROR_MSG);
+    }
+})
+
 app.post("/user/:uid/travel/:tid/review",jwt.checkUserId, async(req, res) => {
     try{
         const uid = req.params.uid;
@@ -205,17 +268,19 @@ app.get("/travel/:id/review",jwt.checkTokenExists, async(req, res) => {
 
 app.get("/admin",jwt.checkAdmin,async(req,res)=>{
     res.status(200).sendFile(path.resolve("./public/admin_console.html"));
+    // res.status(200).sendFile("/admin_console.html");
 })
 // bonus feature login
 app.post("/user/login", async(req, res) => {
     try{
+        // console.log(req);
         const email = req.body.email;
         const password = req.body.password;
         const result = await user.login_user(email, password);
         const users = result.user
         const token = await jwt.getToken(users.userid,users.role);
         const message = users.role =="admin" ? "Welcome admin!" : result.message;
-        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax"}).status(200).send(message);
+        res.cookie("sessionCookie",token,{httpOnly:true,sameSite:"lax", expires:false}).status(200).send(message);
     }catch(err){
         console.log(err)
         res.status(500).send(ERROR_MSG);
