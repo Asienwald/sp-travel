@@ -78,7 +78,32 @@ app.get("/view", jwt.checkTokenExists, async(req, res) => {
     }
 })
 
+app.get("/edit", jwt.checkAdmin,(req,res)=>{
+    res.status(200).sendFile(path.resolve("./public/update_listing_details.html"))
+})
+
+app.get("/admin",jwt.checkAdmin,async(req,res)=>{
+    res.status(200).sendFile(path.resolve("./public/admin_console.html"));
+    // res.status(200).sendFile("/admin_console.html");
+})
+
 //#endregion
+
+app.post("/travel/filter", async (req, res) => {
+    try{
+        let country = req.body.country;
+        let dateFrom = req.body.dateFrom;
+        let dateTo = req.body.dateTo;
+        let minPrice = req.body.minPrice;
+        let maxPrice = req.body.maxPrice;
+
+        const results = await travel_listings.filter_travel_listings(country, dateFrom, dateTo, minPrice, maxPrice);
+        res.status(200).send(results);
+    }catch(err){
+        console.log(err);
+        res.status(500).sendFile(path.resolve("./public/error.html"));
+    }
+})
 
 
 app.get("/users",async(req,res)=>{
@@ -134,7 +159,7 @@ app.put("/users/:id",jwt.checkUserId,async(req,res)=>{
     }
 })
 
-app.get("/travel",jwt.checkTokenExists,async(req,res)=>{
+app.get("/travel",async(req,res)=>{
     try{
         const results = await travel_listings.get_travel_listings();
         res.status(200).send(results);
@@ -150,12 +175,14 @@ app.post("/travel",jwt.checkAdmin,async(req,res)=>{
         const description = req.body.description;
         const price = req.body.price;
         const country = req.body.country;
-        const travel_period = req.body.travel_period;
+        // const travel_period = req.body.travel_period;
+        const dateFrom = req.body.date_from;
+        const dateTo = req.body.date_to;
         const src = req.file.path;
         console.log(req.file);
         const dest = `${Date.now()}.jpg`;
         await transfer(src,`${travel_url}${dest}`);
-        const results = await travel_listings.add_travel_listings(title,description,dest,price,country,travel_period);
+        const results = await travel_listings.add_travel_listings(title,description,dest,price,country,dateFrom, dateTo);
         res.type("json").status(201).send(`{"travelid":${results}}`);
     }catch(err){
         console.log(err);
@@ -214,6 +241,18 @@ app.get("/travel/:id/itinerary",jwt.checkTokenExists, async(req, res) => {
     }
 })
 
+app.delete("/travel/itinerary/:iid", jwt.checkAdmin, async(req, res) => {
+    try{
+        const iid = req.params.iid;
+        const result = await travel_listings.delete_itinerary(iid);
+        console.log(result);
+        res.status(204).send(null);
+    }catch(err){
+        console.log(err);
+        res.status(500).sendFile(path.resolve("./public/error.html"));
+    }
+})
+
 app.post("/travel/:id/itinerary",jwt.checkAdmin, async(req, res) => {
     try{
         const tid = req.params.id;
@@ -266,10 +305,7 @@ app.get("/travel/:id/review",jwt.checkTokenExists, async(req, res) => {
     }
 })
 
-app.get("/admin",jwt.checkAdmin,async(req,res)=>{
-    res.status(200).sendFile(path.resolve("./public/admin_console.html"));
-    // res.status(200).sendFile("/admin_console.html");
-})
+
 // bonus feature login
 app.post("/user/login", async(req, res) => {
     try{
@@ -291,8 +327,6 @@ app.post("/user/logout",(req,res) =>{
     res.clearCookie("sessionCookie").status(200).send();
 })
 
-app.get("/edit",(req,res)=>{
-    res.status(200).sendFile(path.resolve("./public/edit_travel.html"))
-})
+
 
 module.exports = app;

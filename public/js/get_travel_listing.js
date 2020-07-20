@@ -1,18 +1,14 @@
 $("document").ready(()=>{
-    
-
-    // $("#manage").click(()=>{
-    //     let container = $("#travel-listing-container");
-    //     container.empty();
-    //     axios.get("http://127.0.0.1:3000/travel").then((response)=>{
-    //         response.data.every(createCard);
-    //     })
-        
-    // })
     initTravelListings();
+
+    
 })
 
+
 const createCard = (data)=>{
+    data.date_from = data.date_from.substring(0, 10);
+    data.date_to = data.date_to.substring(0, 10);
+
     let container = $("#travel-listing-container");
     let innerContaner = $(`<div class="col s12 m12 l6 "></div>`);
     let card = $(` <div class="card waves-effect waves-light hoverable modal-trigger" ></div>`);
@@ -29,7 +25,7 @@ const createCard = (data)=>{
 
     let action = $(`<div class="card-action "></div>`);
     let row = $(`<div class="row center "></div>`);
-    let travelPeriod = $(`<p id="travel-period" class="grey-text col s6 ">${data.travel_period}</p>`);
+    let travelPeriod = $(`<p id="travel-period" class="grey-text col s6 left-align">${data.date_from} to ${data.date_to}</p>`);
     let price = $(`<p id="price" class="grey-text col s6 ">${data.price}</p>`);
     row.append(travelPeriod);
     row.append(price);
@@ -47,11 +43,15 @@ const createCard = (data)=>{
     return true;
 }
 
-function initTravelListings(){
+function fillTravelListings(results){
     let container = $("#travel-listing-container");
     container.empty();
+
+    results.data.every(createCard);
+}
+
+function initTravelListings(){
     axios.get("/travel").then((response)=>{
-        console.log(response);
-        response.data.every(createCard);
+        fillTravelListings(response);
     })
 }

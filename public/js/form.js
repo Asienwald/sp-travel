@@ -29,10 +29,10 @@ const appendForm = (title)=>{
     console.log(title);
     const field = $(`#${title}`);
     if(title == "travel-period-from"){
-        body.set("travel_period",field.val());
+        body.set("date_from", field.val());
     }
     else if(title == "travel-period-to"){
-        body.set("travel_period",`${body.get("travel_period")} - ${field.val()}`);
+        body.set("date_to", field.val());
     }
     else{
         body.append(title,field.val());
@@ -43,11 +43,19 @@ const appendForm = (title)=>{
 
 const fill_form = (data)=>{
     $(`#title`).trigger("focus").val(data.title);
-    $(`#travel-period-from`).trigger("focus").val(data.travel_period.split("-")[0])
-    $(`#travel-period-to`).trigger("focus").val(data.travel_period.split("-")[1])
+
+    let from_instance = M.Datepicker.getInstance($("#travel-period-from"));
+    from_instance.setDate(new Date(data.date_from));
+    from_instance._finishSelection();
+
+    let to_instance = M.Datepicker.getInstance($("#travel-period-to"));
+    to_instance.setDate(new Date(data.date_to));
+    to_instance._finishSelection();
+
     $(`#country`).trigger("focus").val(data.country);
     $(`#price`).trigger("focus").val(data.price);
-    $(`#description`).trigger("focus").val(data.description);
+    $(`#description`).val(data.description);
+    M.textareaAutoResize($('#description'));
 }
 
 exports = {

@@ -18,7 +18,10 @@
     });
 
     $('.collapsible').collapsible();
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({
+      format: "yyyy-mm-dd",
+      showClearBtn: true
+    });
     $('.materialboxed').materialbox();
     $('select').formSelect();
     $('.tabs').tabs();

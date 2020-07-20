@@ -13,7 +13,7 @@ function initListingDetails(data){
     // init basic details
     $("#travel-img").attr("src", `./travel/${data.image_url}`);
     $("#title").html(data.title);
-    $("#travel-period").html(data.travel_period);
+    $("#travel-period").html(`${data.date_from} to ${data.date_to}`);
     $("#country").html(data.country);
     $("#description").html(data.description);
     $("#price").html(`SGD ${data.price}`);
@@ -26,7 +26,8 @@ function initListingDetails(data){
 function postReview(travel_id){
     let content = $("#review-textarea").val();
     let rating = $("#rating-select").val()
-    if(content == "" || rating == ""){
+    console.log(rating);
+    if(content == "" || rating == null){
         $("#review-error-msg").html("Inputs cannot be empty!");
     }else{
         $("#review-error-msg").html();

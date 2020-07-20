@@ -23,11 +23,11 @@
           <li>
             <div class="collapsible-header"><i class="material-icons">filter_list</i>Filter Options</div>
             <div class="collapsible-body">
-              <form method="post">
+              <form id="filter-form" method="post">
                 <div class="row">
                   <div class="input-field col s12 m6">
-                    <input id="country-input" type="text" class="validate">
-                    <label for="country-input">Country</label>
+                    <input id="country-filter" type="text" class="validate">
+                    <label for="country-filter">Country</label>
                   </div>
                   <div class="input-field col s6 m3">
 
@@ -47,8 +47,12 @@
                     <input id="max-price" type="number" class="validate">
                     <label for="max-price">Max Price</label>
                   </div>
-                  <div class="col s3 offset-s9">
-                    
+                  <div class="col s10 right-align">
+                    <button type="button" class="red btn waves-effect waves-light" id="clear-filters">Clear
+                      <i class="material-icons right">clear</i>
+                    </button>
+                  </div>
+                  <div class="col s2 right-align">
                     <button class="btn waves-effect waves-light" type="submit">Apply
                       <i class="material-icons right">send</i>
                     </button>
@@ -125,7 +129,6 @@
             <p id="description">Tokyo is a very cool place with lots of very nice buildings. Going there during the sakura season is a plus as you get to eat good food and sit under the sakura trees.</p>
             
             
-            
           </div>
           <div class="card-action ">
             <div class="row center ">
@@ -142,7 +145,7 @@
 
 
 
-  <footer class="page-footer grey darken-2">
+  <footer class="page-footer grey darken-2" style="margin-top: 20vh;">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -177,6 +180,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./js/user.js"></script>
   <script src="./js/get_travel_listing.js"></script>
+  <script src="./js/filter_listings.js"></script>
 
   </body>
 </html>
