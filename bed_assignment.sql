@@ -24,14 +24,14 @@ CREATE TABLE `travel_listings` (
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int(11) NOT NULL,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `travel_period` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_from` date NOT NULL,
+  `date_to` date NOT NULL,
   PRIMARY KEY (`travel_id`)
 );
 '4D3N Taiwan Fun!','Taiwan No.1!',4600,'Taiwan','Jul 16, 2020 - Jul 19, 2020','1594888100594.jpg'
 
-INSERT INTO `travel_listings` (title, description, price, country, travel_period, image_url) VALUES ('4D3N Taiwan Fun!','Taiwan No.1!',4600,'Taiwan','Jul 16, 2020 - Jul 19, 2020','1594888100594.jpg');
-
+INSERT INTO `travel_listings` VALUES (1,'4D3N Taiwan Fun!','Taiwan No.1!',4600,'Taiwan','1594888100594.jpg','2020-07-16','2020-07-19');
 
 CREATE TABLE `itinerary` (
   `itinerary_id` int(11) NOT NULL AUTO_INCREMENT,

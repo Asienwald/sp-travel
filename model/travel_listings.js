@@ -54,9 +54,9 @@ const filter_travel_listings = async(country, dateFrom, dateTo, minPrice, maxPri
     return results;
 }
 
-const add_travel_listings = async (title, description, image_url, price, country, travel_period) => {
-    const sql = "INSERT INTO travel_listings(title, description, image_url ,price,country,travel_period) values(?,?,?,?,?,?)"
-    const [results, fields] = await dbConn.query(sql, [title, description, image_url, price, country, travel_period]);
+const add_travel_listings = async (title, description, image_url, price, country, date_from, date_to) => {
+    const sql = "INSERT INTO travel_listings(title, description, image_url ,price, country, date_from, date_to) values(?,?,?,?,?,?,?)"
+    const [results, fields] = await dbConn.query(sql, [title, description, image_url, price, country, date_from, date_to]);
     return results.insertId
 
 }
@@ -67,9 +67,9 @@ const delete_travel_listing = async (id) => {
     return results.affectedRows;
 }
 
-const update_travel_listing = async (title, description, price, country, travel_period, travel_id, image_url="") => {
-    const sql = image_url != "" ? "update travel_listings set title=?, description=?, image_url=?, price=?, country=?, travel_period=? where travel_id=?;" :  "update travel_listings set title=?, description=?, price=?, country=?, travel_period=? where travel_id=?;" 
-    const [results, fields] = await dbConn.query(sql, image_url != "" ? [title, description, image_url, price, country, travel_period,travel_id] :  [title, description, price, country, travel_period,travel_id] );
+const update_travel_listing = async (title, description, price, country, date_from, date_to, travel_id, image_url="") => {
+    const sql = image_url != "" ? "update travel_listings set title=?, description=?, image_url=?, price=?, country=?, date_from=?, date_to=? where travel_id=?;" :  "update travel_listings set title=?, description=?, price=?, country=?, date_from=?, date_to=? where travel_id=?;" 
+    const [results, fields] = await dbConn.query(sql, image_url != "" ? [title, description, image_url, price, country, date_from, date_to,travel_id] :  [title, description, price, country, date_from, date_to,travel_id] );
     return results.affectedRows;
 }
 
