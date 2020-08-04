@@ -69,6 +69,7 @@ const delete_travel_listing = async (id) => {
 
 const update_travel_listing = async (title, description, price, country, date_from, date_to, travel_id, image_url="") => {
     const sql = image_url != "" ? "update travel_listings set title=?, description=?, image_url=?, price=?, country=?, date_from=?, date_to=? where travel_id=?;" :  "update travel_listings set title=?, description=?, price=?, country=?, date_from=?, date_to=? where travel_id=?;" 
+    console.log(travel_id);
     const [results, fields] = await dbConn.query(sql, image_url != "" ? [title, description, image_url, price, country, date_from, date_to,travel_id] :  [title, description, price, country, date_from, date_to,travel_id] );
     return results.affectedRows;
 }

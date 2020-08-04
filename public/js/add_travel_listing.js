@@ -13,7 +13,7 @@ $("document").ready(()=>{
         else{
             data.every(appendForm);
             body.append("upload",$("#image")[0].files[0])
-            axios.post("http://127.0.0.1:3000/travel",body,config).then((response)=>{
+            axios.post("http://localhost:3000/travel",body,config).then((response)=>{
                 M.toast({html: "Added travel listing!"});
                 $("#travel").trigger("reset");
             });

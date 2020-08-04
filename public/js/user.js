@@ -1,3 +1,5 @@
+
+
 $("document").ready(()=>{
     axios.get("/getHeader").then((resp) => {
         console.log("getting header...");
@@ -63,33 +65,38 @@ $("document").ready(()=>{
                 window.location.href = "/";
             })
         })
+        $("#register").click(()=>{
+            event.preventDefault();
+            const username = $("#uid").val();
+            const email = $("#email").val();
+            const password1 = $("#pwd1").val();
+            const password2 = $("#pwd2").val();
+            let error = "";
+            if(username.length == 0){
+                error += "Username cannot be empty!\n";
+            }
+            if(!re.test(email)){
+                error += "Invalid email!\n";
+            }
+            if(password1.length == 0){
+                error += "Password cannot be empty!\n";
+            }
+            if(password1 != password2){
+                error += "Passwords do not match!\n";
+            }
+            if(error == ""){
+                let body = new FormData();
+                body.append("username",username);
+                body.append("email",email);
+                body.append("password",password1);
+                axios.post("/users",body,config).then((response)=>{
+                    M.toast({html: 'User Added!'})
+                    $("#register").trigger("reset");
+                })
+            }
+            
+        })
     })
-    
-    // $("#register").click(()=>{
-    //     event.preventDefault();
-    //     const username = $("#uid").val();
-    //     const email = $("#email").val();
-    //     const password1 = $("#pwd1").val();
-    //     const password2 = $("#pwd2").val();
-    //     let error = "";
-    //     if(username.length == 0){
-    //         error += "Username cannot be empty!\n";
-    //     }
-    //     if(!re.test(email)){
-    //         error += "Invalid email!\n";
-    //     }
-    //     if(password1.length == 0){
-    //         error += "Password cannot be empty!\n";
-    //     }
-    //     if(password1 != password2){
-    //         error += "Passwords do not match!\n";
-    //     }
-    //     if(error == ""){
-    //         let body = new FormData();
-    //         body.append()
-    //     }
-        
-    // })
     
 })
 

@@ -11,9 +11,6 @@ const generate_hash_password = async (password, salt = null) => {
     return [hash, salt];
 }
 
-
-
-
 const get_users = async () => {
     const sql = "SELECT userid, username, profile_pic_url, created_at FROM users";
     [results, fields] = await dbConn.query(sql);

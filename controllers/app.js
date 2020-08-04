@@ -9,6 +9,7 @@ const util = require("util");
 const stream = require("stream");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const cors = require("cors")
 const pipeline = util.promisify(stream.pipeline);
 const fsPromises = require("fs.promises");
 const app = express();
@@ -29,7 +30,8 @@ const transfer = async (src,dest)=>{
     );
 }
 
-app.use(type)
+app.use(type);
+app.use(cors());
 app.use(express.static(path.resolve("./public/")))
 app.use(cookieParser())
 
@@ -121,10 +123,10 @@ app.post("/users",async (req,res)=>{
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
-        const src = req.file.path;
-        const dest = `${profile_pic_url}${username}.jpg`;
-        await transfer(src,dest);
-        const results = await user.add_users(username,email,username, password,true);
+        // const src = req.file.path;
+        // const dest = `${profile_pic_url}${username}.jpg`;
+        // await transfer(src,dest);
+        const results = await user.add_users(username,email,username, password);
         res.type("json").status(201).send(`{"userid":${results}}`);
     }catch(err){
         console.log(err);
@@ -210,20 +212,23 @@ app.put("/travel/:id/",jwt.checkAdmin, async(req, res) => {
         const description = req.body.description;
         const price = req.body.price;
         const country = req.body.country;
-        const travel_period = req.body.travel_period;
+        const date_to = req.body.date_to;
+        const date_from = req.body.date_from
+        console.log(tid);
         if(req.file != undefined || req.file !=null){
             const src = req.file.path;
             const dest = `${Date.now()}.jpg`;
             await transfer(src,`${travel_url}${dest}`);
             const travel = await travel_listings.get_travel_listings_by_id(tid);
             fs.unlink(`${travel_url}${travel[0].image_url}`,async()=>{
-                const result = await travel_listings.update_travel_listing(title, description, price, country, travel_period, tid, dest);
+                const result = await travel_listings.update_travel_listing(title, description, price, country, date_from, date_to, tid, dest);
             });
         }
         else{
-            const result = await travel_listings.update_travel_listing(title, description,price, country, travel_period, tid);
+            const result = await travel_listings.update_travel_listing(title, description, price, country, date_from, date_to, tid,);
+            console.log(result)
         }
-
+        
         res.status(204).send(null);
     }catch(err){
         console.log(err)
