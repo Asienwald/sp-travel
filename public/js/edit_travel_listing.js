@@ -34,7 +34,7 @@ $("document").ready(()=>{
     })
     $(`#itinerary`).click(()=>{
         let yo = document.getElementsByClassName("created");
-        for(x = 0; x < yo.length; x++){
+        for(var x = 0; x < yo.length; x++){
             yo[x].remove();
         }
         axios.get(`/travel/${travelData.travel_id}/itinerary`).then((response)=>{

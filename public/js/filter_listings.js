@@ -14,11 +14,11 @@ $("document").ready(() => {
 
 function filterTravelListings(){
     let country = $("#country-filter").val();
-    let dateFrom = $("#travel-period-from").val();
-    let dateTo = $("#travel-period-to").val();
+    let dateFrom = $("#travel-period-from-filter").val();
+    let dateTo = $("#travel-period-to-filter").val();
     let minPrice = $("#min-price").val();
     let maxPrice = $("#max-price").val();
-
+    console.log(dateFrom)
     let body = new FormData();
     body.append("country", country);
     body.append("dateFrom", dateFrom);

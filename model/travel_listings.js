@@ -18,6 +18,7 @@ const get_travel_listings_by_id = async (id) => {
 
 const filter_travel_listings = async(country, dateFrom, dateTo, minPrice, maxPrice) => {
     let sql = "select * from travel_listings where ", conditions = [], values = [];
+    console.log(dateFrom);
     if(country != ""){
         conditions.push("country like ? ");
         values.push(`%${country}%`);
@@ -50,7 +51,7 @@ const filter_travel_listings = async(country, dateFrom, dateTo, minPrice, maxPri
     }
     
     const [results, fields] =  await dbConn.query(sql, values);
-    // console.log(results);
+    console.log(results);
     return results;
 }
 

@@ -98,7 +98,7 @@ app.post("/travel/filter", async (req, res) => {
         let dateTo = req.body.dateTo;
         let minPrice = req.body.minPrice;
         let maxPrice = req.body.maxPrice;
-
+        console.log(req.body)
         const results = await travel_listings.filter_travel_listings(country, dateFrom, dateTo, minPrice, maxPrice);
         res.status(200).send(results);
     }catch(err){
@@ -163,9 +163,7 @@ app.put("/users/:id",jwt.checkUserId,async(req,res)=>{
 
 app.get("/travel",async(req,res)=>{
     try{
-
         const results = await travel_listings.get_travel_listings();
-        console.log(results)
         res.status(200).send(results);
     }catch(err){
         console.log(err);

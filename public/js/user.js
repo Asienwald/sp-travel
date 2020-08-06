@@ -65,7 +65,7 @@ $("document").ready(()=>{
                 window.location.href = "/";
             })
         })
-        $("#register").click(()=>{
+        $("#register").submit(()=>{
             event.preventDefault();
             const username = $("#uid").val();
             const email = $("#email").val();
