@@ -23,6 +23,7 @@ $("document").ready(()=>{
             axios.put(`/travel/${travelData.travel_id}`,body,config).then((response)=>{
                 console.log(response)
                 M.toast({html: "Updated travel listing!"});
+                body = new FormData();
             });
         }
     })

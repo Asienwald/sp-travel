@@ -71,20 +71,24 @@ $("document").ready(()=>{
             const email = $("#email").val();
             const password1 = $("#pwd1").val();
             const password2 = $("#pwd2").val();
-            let error = "";
+            let error = false
             if(username.length == 0){
-                error += "Username cannot be empty!\n";
+                M.toast({html:"Username cannot be empty!\n"});
+                error = true;
             }
             if(!re.test(email)){
-                error += "Invalid email!\n";
+                M.toast({html:"Invalid email!\n"});
+                error = true;
             }
             if(password1.length == 0){
-                error += "Password cannot be empty!\n";
+                M.toast({html:"Password cannot be empty!\n"});
+                error = true;
             }
             if(password1 != password2){
-                error += "Passwords do not match!\n";
+                M.toast({html:"Passwords do not match!\n"});
+                error = true;
             }
-            if(error == ""){
+            if(error == false){
                 let body = new FormData();
                 body.append("username",username);
                 body.append("email",email);

@@ -163,7 +163,9 @@ app.put("/users/:id",jwt.checkUserId,async(req,res)=>{
 
 app.get("/travel",async(req,res)=>{
     try{
+
         const results = await travel_listings.get_travel_listings();
+        console.log(results)
         res.status(200).send(results);
     }catch(err){
         console.log(err);

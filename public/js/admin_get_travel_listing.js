@@ -10,7 +10,7 @@ $("document").ready(()=>{
 const createCard = (data)=>{
     data.date_from = data.date_from.substring(0, 10);
     data.date_to = data.date_to.substring(0, 10);
-
+    console.log(data)
     let container = $("#travel-listing-container");
     let innerContaner = $(`<div class="col s12 m12 l6 "></div>`);
     let card = $(` <div class="card waves-effect waves-light hoverable modal-trigger" ></div>`);
