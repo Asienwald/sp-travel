@@ -1,10 +1,9 @@
 $("document").ready(()=>{
     data.every(focus);
     $("#submit").click(()=>{
-        data.every(clear);
         data.every(validate);
         if($("#image")[0].files[0] == undefined){
-            var validated = false;
+            validated = false;
             $("#image").css("border-bottom","1px solid red");
         }
         if(!validated){
@@ -17,7 +16,8 @@ $("document").ready(()=>{
                 M.toast({html: "Added travel listing!"});
                 $("#travel").trigger("reset");
             });
-            var body = new FormData();
+            body = new FormData();
+            data.every(clear);
         }
     })
    
