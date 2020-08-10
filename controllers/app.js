@@ -126,7 +126,7 @@ app.post("/users",async (req,res)=>{
         // const src = req.file.path;
         // const dest = `${profile_pic_url}${username}.jpg`;
         // await transfer(src,dest);
-        const results = await user.add_users(username,email,username, password);
+        const results = await user.add_users(username,email, "default", password);
         res.type("json").status(201).send(`{"userid":${results}}`);
     }catch(err){
         console.log(err);

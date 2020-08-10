@@ -1,5 +1,4 @@
 const db = require("../database/db");
-// const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
 const dbConn = db.getConnection()
@@ -21,7 +20,7 @@ const add_users = async (username, email, profile_pic_url, password,admin=false)
     const role = admin? "admin":"user";
     const sql = "INSERT INTO users(username, email, profile_pic_url, password, salt, role) values(?, ?, ?, ?, ?, ?)"
     const [hash, salt] = await generate_hash_password(password);
-    [results, fields] = await dbConn.query(sql, [username, email, `${profile_pic_url}.png`, hash, salt,role]);
+    [results, fields] = await dbConn.query(sql, [username, email, profile_pic_url, hash, salt,role]);
     return results.insertId
 }
 

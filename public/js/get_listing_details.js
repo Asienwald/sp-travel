@@ -36,7 +36,6 @@ function postReview(travel_id){
         body.append("content", content);
         body.append("rating", rating);
         axios.post(`/travel/${travel_id}/review`, body, {headers: {"Content-Type": "multipart/form-data"}}).then((resp) => {
-            // console.log("YES" + resp);
             M.toast({html: 'Review Added!'})
 
             initReviews(travel_id);
@@ -49,7 +48,6 @@ function initItineraries(travel_id){
     container.empty();
 
     const createActivityCard = (data) => {
-        // console.log(data);
         
         let cardCode = `<div class="col s12 m6">
         <div class="card blue-grey darken-1" style="margin-left: 0; margin-right: 0;">
@@ -64,7 +62,6 @@ function initItineraries(travel_id){
     }
 
     axios.get(`/travel/${travel_id}/itinerary`).then((resp) => {
-        // console.log(resp);
         resp.data.every(createActivityCard);
     })
 }
@@ -81,13 +78,16 @@ function initReviews(travel_id){
         }
         console.log(data.profile_pic_url);
 
+        let date = data.created_at.substring(0, 10);
+        let time = data.created_at.substring(11, 19);
+
         let cardCode = `<div class="col s12 left-align">
         <div class="card horizontal review-card" style="margin-left: 0;">
           <div class="card-image user-img" style="background-image: url('/images/${data.profile_pic_url}.jpg');">
           </div>
           <div class="card-stacked">
             <div class="card-content">
-              <h6>${data.username} Says</h6>
+              <h6><span class="blue-text">${data.username}</span> Says</h6>
               <p>${data.content}</p>
             </div>
             <div class="card-action">
@@ -95,7 +95,7 @@ function initReviews(travel_id){
                 ${ratingCode}
               </div>
               <div>
-                <p class="grey-text">${data.created_at}</p>
+                <p class="grey-text">${date} ${time}</p>
               </div>
             </div>
           </div>

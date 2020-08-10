@@ -19,14 +19,12 @@ const createCard = (data)=>{
     
     let content = $(`<div class="card-content "></div>`);
     let title = $(`<span id="title" class="card-title">${data.title}</span>`);
-    // let description = $(`<p id="description">${data.description}</p>`)
     content.append(title);
-    // content.append(description);
 
     let action = $(`<div class="card-action "></div>`);
     let row = $(`<div class="row center "></div>`);
     let travelPeriod = $(`<p id="travel-period" class="grey-text col s6 left-align">${data.date_from} to ${data.date_to}</p>`);
-    let price = $(`<p id="price" class="grey-text col s6 ">${data.price}</p>`);
+    let price = $(`<p id="price" class="grey-text col s6 ">SGD ${data.price}</p>`);
     row.append(travelPeriod);
     row.append(price);
     action.append(row);
