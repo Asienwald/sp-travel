@@ -1,6 +1,4 @@
 const db = require("../database/db");
-const dbconnect = require("../database/db");
-const { filter } = require("mysql2/lib/constants/charset_encodings");
 
 const dbConn = db.getConnection()
 

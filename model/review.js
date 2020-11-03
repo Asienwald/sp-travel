@@ -1,6 +1,4 @@
 const db = require("../database/db");
-const userDB = require("./user");
-const { forEach } = require("mysql2/lib/constants/charset_encodings");
 const dbConn = db.getConnection();
 
 const create_review = async(uid, tid, content, rating) => {

@@ -7,26 +7,15 @@ Members:
 */
 
 const mysql = require("mysql2");
+require('dotenv').config();
 
-// const dbconnect = {
-//     getConnection: ()=>{
-//         const conn = mysql.createPool({
-//             host:"localhost",
-//             port: 3306,
-//             user: "pikachu",
-//             password: "password",
-//             database: "SPTRAVEL"
-//         }).promise();
-//         return conn;
-//     }
-// }
 const dbconnect = {
     getConnection: ()=>{
         const conn = mysql.createPool({
             host:"localhost",
             port: 3306,
-            user: "root",
-            password: "frickFrack28!",
+            user: process.env.DBUSER,
+            password: process.env.DBPASSWORD,
             database: "sptravel"
         }).promise();
         return conn;
